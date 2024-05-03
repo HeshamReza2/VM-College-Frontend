@@ -1,0 +1,230 @@
+.announce{
+    display: flex;
+    width: 100%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+.announce-bar{
+    display: flex;
+    padding: 0px 10px;
+    background-color: rgb(255, 194, 194);
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.announce-bar h5{
+    padding-top: 5px;
+}
+
+.announce-bar i{
+    padding-top: 8px;
+    padding-left: 7px;
+}
+
+.announce marquee{
+    background: rgba(255, 255, 255, 0.38);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.9px);
+    -webkit-backdrop-filter: blur(7.9px);
+    border: 1px solid rgba(255, 255, 255, 0.37);
+    font-family: "Josefin Sans", sans-serif;
+    padding: 5px;
+}
+
+.container-main{
+    margin-top: 20px;
+}
+
+@property --Color1{
+    syntax: '<color>';
+    initial-value: rgb(255, 194, 194);
+    inherits: false;
+}
+
+@property --Color2{
+    syntax: '<color>';
+    initial-value: rgb(255, 160, 160);
+    inherits: false;
+}
+
+.notice-box{
+    background-image: linear-gradient(180deg, var(--Color1), var(--Color2));
+    border-radius: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.notice-box h6{
+    font-size: 28px;
+    font-family: "Merriweather", serif;
+    padding-top: 10px;
+}
+
+.notice-points{
+    height: 430px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 20px;
+    font-family: "Josefin Sans", sans-serif;;
+}
+
+.notice-points::-webkit-scrollbar{
+    background-image: linear-gradient(180deg, var(--Color1), var(--Color2));
+    border-radius: 20px;
+}
+
+.notice-points::-webkit-scrollbar-thumb{
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.notices{
+    display: flex;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+}
+
+.notices:last-child{
+    border-bottom: 0px solid black;
+}
+
+.notices i{
+    padding: 5.5px 8px 0px 0px;
+    color: rgb(117, 117, 255);
+}
+
+@property --myColor1{
+    syntax: '<color>';
+    initial-value: rgb(117, 117, 255);
+    inherits: false;
+}
+
+@property --myColor2{
+    syntax: '<color>';
+    initial-value: rgb(64, 64, 255);
+    inherits: false;
+}
+
+.admission-box{
+    background-image: linear-gradient(180deg, var(--myColor1), var(--myColor2));
+    color: white;
+    padding: 15px 0px;
+    border-radius: 20px;
+    transition: --myColor1 1s, --myColor2 1s;
+    display: flex;
+    flex-direction: column;
+}
+
+.admission-box:hover{
+    --myColor1: rgb(64, 64, 255);
+    --myColor2: rgb(117, 117, 255);
+}
+
+.admission-box h6{
+    font-size: 22px;
+    padding-top: 15px;
+    font-family: "Merriweather", serif;
+}
+
+.admission-box p{
+    font-size: 16px;
+    padding-top: 10px;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.admission-box i{
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+.admission-box-content{
+    padding: 7px;
+    background-image: linear-gradient(180deg, var(--myColor2), var(--myColor1));
+    border-radius: 20px;
+    margin-top: 10px;
+    color: white;
+    transition: --myColor1 1s, --myColor2 1s;
+}
+
+.admission-box-content:hover{
+    --myColor1: rgb(64, 64, 255);
+    --myColor2: rgb(117, 117, 255);
+}
+
+.admission-box-content h6{
+    font-size: 20px;
+    width: 100%;
+    padding: 20px 0px;
+    font-family: "Merriweather", serif;
+}
+
+.table{
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+th{
+    font-family: "Merriweather", serif;
+}
+
+.admission-info{
+    background-image: linear-gradient(180deg, var(--myColor1), var(--myColor2));
+    border-radius: 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    text-align: left;
+    color: white;
+    transition: --myColor1 1s, --myColor2 1s;
+}
+
+.admission-info:hover{
+    --myColor1: rgb(64, 64, 255);
+    --myColor2: rgb(117, 117, 255);
+}
+
+.admission-info h6{
+    padding: 10px;
+    font-size: 25px;
+    font-family: "Merriweather", serif;
+}
+
+.admission-info ul{
+    list-style-type: '\27A4';
+}
+
+.admission-info ul li{
+    padding: 0px 20px;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+@media screen and (max-width: 425px) {
+    .announce-bar h5{
+        display: none;
+    }
+
+    .announce-bar i{
+        padding-top: 3px;
+        padding-left: 0px;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .admission-box{
+        height: 230px;
+    }
+
+    .admission-box-content h6{
+        height: 75px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .admission-box{
+        height: 230px;
+    }
+
+    .admission-box-content h6{
+        height: 85px;
+    }
+}

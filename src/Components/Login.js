@@ -105,10 +105,10 @@ function Login() {
                 <Col sm='10' className='switch-login text-center'>
                     <Row className="justify-content-center">
                         <Col sm='5' className={`switch-login-box ${activeSwitch1}`}>
-                            <button onClick={() => setLogPage('student')}>Student Log In</button>
+                            <button className='change-button' onClick={() => setLogPage('student')}>Student Log In</button>
                         </Col>
                         <Col sm='5' className={`switch-login-box ${activeSwitch2}`}>
-                            <button onClick={() => setLogPage('institute')}>Institute Log In</button>
+                            <button className='change-button' onClick={() => setLogPage('institute')}>Institute Log In</button>
                         </Col>
                     </Row>
                 </Col>
