@@ -8,8 +8,9 @@
 .announce-bar{
     display: flex;
     padding: 0px 10px;
-    background-color: rgb(255, 194, 194);
+    background-image: linear-gradient(to right, rgb(202, 0, 0), rgb(114, 0, 0));
     font-family: "Space Grotesk", sans-serif;
+    color: white;
 }
 
 .announce-bar h5{
@@ -37,27 +38,32 @@
 
 @property --Color1{
     syntax: '<color>';
-    initial-value: rgb(255, 194, 194);
+    initial-value: rgb(202, 0, 0);
     inherits: false;
 }
 
 @property --Color2{
     syntax: '<color>';
-    initial-value: rgb(255, 160, 160);
+    initial-value: rgb(114, 0, 0);
     inherits: false;
 }
 
 .notice-box{
-    background-image: linear-gradient(180deg, var(--Color1), var(--Color2));
-    border-radius: 20px;
+    margin-top: 35px;
+    padding: 5px;
+    border: 2px solid grey;
     padding-bottom: 20px;
     text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 .notice-box h6{
+    background-image: linear-gradient(180deg, var(--Color1), var(--Color2));
     font-size: 28px;
     font-family: "Merriweather", serif;
     padding-top: 10px;
+    margin-top: 3px;
+    color: white;
 }
 
 .notice-points{
@@ -81,7 +87,7 @@
 
 .notices{
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-top: 10px;
 }
 
@@ -91,19 +97,28 @@
 
 .notices i{
     padding: 5.5px 8px 0px 0px;
-    color: rgb(117, 117, 255);
+    color: rgb(202, 0, 0);
+}
+
+.notices p:hover{
+ color: rgb(202, 0, 0);
+ cursor: pointer;
 }
 
 @property --myColor1{
     syntax: '<color>';
-    initial-value: rgb(117, 117, 255);
+    initial-value: rgb(202, 0, 0);
     inherits: false;
 }
 
 @property --myColor2{
     syntax: '<color>';
-    initial-value: rgb(64, 64, 255);
+    initial-value: rgb(114, 0, 0);
     inherits: false;
+}
+
+.admission-box-column{
+    padding: 20px;
 }
 
 .admission-box{
@@ -114,11 +129,12 @@
     transition: --myColor1 1s, --myColor2 1s;
     display: flex;
     flex-direction: column;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 .admission-box:hover{
-    --myColor1: rgb(64, 64, 255);
-    --myColor2: rgb(117, 117, 255);
+    --myColor1: rgb(114, 0, 0);
+    --myColor2: rgb(202, 0, 0);
 }
 
 .admission-box h6{
@@ -140,28 +156,31 @@
 
 .admission-box-content{
     padding: 7px;
-    background-image: linear-gradient(180deg, var(--myColor2), var(--myColor1));
-    border-radius: 20px;
+    border: 2px solid grey;
     margin-top: 10px;
     color: white;
-    transition: --myColor1 1s, --myColor2 1s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
-.admission-box-content:hover{
-    --myColor1: rgb(64, 64, 255);
-    --myColor2: rgb(117, 117, 255);
+.admission-box-content h6:hover{
+    --myColor1: rgb(114, 0, 0);
+    --myColor2: rgb(202, 0, 0);
 }
 
 .admission-box-content h6{
+    background-image: linear-gradient(180deg, var(--myColor2), var(--myColor1));
     font-size: 20px;
     width: 100%;
     padding: 20px 0px;
     font-family: "Merriweather", serif;
+    transition: --myColor1 1s, --myColor2 1s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 .table{
-    color: white;
+    color: rgb(202, 0, 0);
     font-family: "Josefin Sans", sans-serif;
+    width: 100%;
 }
 
 th{
@@ -169,33 +188,68 @@ th{
 }
 
 .admission-info{
-    background-image: linear-gradient(180deg, var(--myColor1), var(--myColor2));
-    border-radius: 20px;
-    border-radius: 20px;
     margin-top: 10px;
     text-align: left;
-    color: white;
+    margin-top: 15px;
+}
+
+.admission-info-details{
+    border: 2px solid grey;
+    padding: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.admission-info-details h6:hover{
+    --myColor1: rgb(114, 0, 0);
+    --myColor2: rgb(202, 0, 0);
+}
+
+.admission-info-details h6{
+    background-image: linear-gradient(180deg, var(--myColor1), var(--myColor2));
     transition: --myColor1 1s, --myColor2 1s;
-}
-
-.admission-info:hover{
-    --myColor1: rgb(64, 64, 255);
-    --myColor2: rgb(117, 117, 255);
-}
-
-.admission-info h6{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    color: white;
     padding: 10px;
     font-size: 25px;
     font-family: "Merriweather", serif;
 }
 
-.admission-info ul{
+.admission-info-details ul{
     list-style-type: '\27A4';
 }
 
-.admission-info ul li{
+.admission-info-details ul li{
     padding: 0px 20px;
     font-family: "Josefin Sans", sans-serif;
+    color: var(--myColor1);
+}
+
+.admission-info .admission-info-details ul li a{
+    color: black;
+    cursor: pointer;
+}
+
+.admission-info .admission-info-details ul li a:hover{
+    color: red;
+}
+
+.table-responsive{
+    max-height: 260px;
+}
+
+.table-responsive::-webkit-scrollbar{
+    background-image: linear-gradient(180deg, var(--myColor1), var(--myColor2));
+    border-radius: 20px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.instruction-box{
+    margin-top: 15px;
 }
 
 @media screen and (max-width: 425px) {
@@ -204,7 +258,7 @@ th{
     }
 
     .announce-bar i{
-        padding-top: 3px;
+        padding-top: 9px;
         padding-left: 0px;
     }
 }
@@ -224,6 +278,12 @@ th{
         height: 230px;
     }
 
+    .admission-box-content h6{
+        height: 85px;
+    }
+}
+
+@media screen and (max-width: 1440px){
     .admission-box-content h6{
         height: 85px;
     }

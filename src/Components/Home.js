@@ -17,9 +17,9 @@ function Home() {
 
       <Container fluid className='container-main'>
         <Row className='text-center'>
-          <Col sm='8'>
+          <Col sm='9'>
             <Row className='justify-content-center'>
-              <Col sm='5' className='equal-height-column  m-1'>
+              <Col sm='6' className='equal-height-column admission-box-column'>
                 <Row className='admission-box'>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For UG</h6>
@@ -29,27 +29,47 @@ function Home() {
                 <Row className='admission-box-content justify-content-center'>
                   <h6>Admission Schedule For Under Graduate</h6>
 
-                  <table className='table'>
-                    <thead>
-                      <tr>
-                        <th scope='col'>Sr No</th>
-                        <th scope='col'>Title</th>
-                        <th scope='col'>Date/ Timelines</th>
-                      </tr>
-                    </thead>
+                  <div className='table-responsive'>
+                    <table className='table'>
+                      <thead>
+                        <tr>
+                          <th scope='col'>Sr No</th>
+                          <th scope='col'>Title</th>
+                          <th scope='col'>Date/ Timelines</th>
+                        </tr>
+                      </thead>
 
-                    <tbody>
-                      <tr>
-                        <th scope='row'>1</th>
-                        <td>Hesham Reza</td>
-                        <td>03-05-2024</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <tbody>
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </Row>
               </Col>
               
-              <Col sm='5' className='equal-height-column  m-1'>
+              <Col sm='6' className='equal-height-column admission-box-column'>
                 <Row className='admission-box'>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For Inter-</h6>
@@ -59,29 +79,55 @@ function Home() {
                 <Row className='admission-box-content justify-content-center'>
                   <h6>Admission Schedule For </h6>
 
-                  <table className='table'>
-                    <thead>
-                      <tr>
-                        <th scope='col'>Sr No</th>
-                        <th scope='col'>Title</th>
-                        <th scope='col'>Date/ Timelines</th>
-                      </tr>
-                    </thead>
+                  <div className='table-responsive'>
+                    <table className='table'>
+                      <thead>
+                        <tr>
+                          <th scope='col'>Sr No</th>
+                          <th scope='col'>Title</th>
+                          <th scope='col'>Date/ Timelines</th>
+                        </tr>
+                      </thead>
 
-                    <tbody>
-                      <tr>
-                        <th scope='row'>1</th>
-                        <td>Hesham Reza</td>
-                        <td>03-05-2024</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <tbody>
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                        
+                        <tr>
+                          <th scope='row'>1</th>
+                          <td>Hesham Reza</td>
+                          <td>03-05-2024</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </Row>
               </Col>
             </Row>
           </Col>
           
-          <Col sm='4'>
+          <Col sm='3'>
             <div className='notice-box'>
               <h6>Notice</h6>
               
@@ -165,24 +211,39 @@ function Home() {
           </Col>
         </Row>
 
-        <Row className='justify-content-center' style={{'margin-top': '10px'}}>
-          <Col sm='8'>
-            <Row  className='justify-content-center'>
-              <Col sm='10' className='admission-info'>
-                <h6>Admission Info</h6>
+        <Row className='justify-content-center'>
+          <Col sm='9'>
+            <Row>
+              <Col sm='6' className='admission-info equal-height-column'>
+                <div className='admission-info-details'>
+                  <h6>Admission Info</h6>
 
-                <ul>
-                  <li>User Manual</li>
-                  <li>Guidelines for Applicants</li>
-                  <li>FAQ</li>
-                  <li>Last Date Extended Notification</li>
-                </ul>
+                  <ul>
+                    <li><a>User Manual</a></li>
+                    <li><a>Guidelines for Applicants</a></li>
+                    <li><a>FAQ</a></li>
+                    <li><a>Last Date Extended Notification</a></li>
+                  </ul>
+                </div>
+              </Col>
+              
+              <Col sm='6' className='admission-info equal-height-column'>
+                <div className='admission-info-details'>
+                  <h6>Admission Info</h6>
+
+                  <ul>
+                    <li><a>User Manual</a></li>
+                    <li><a>Guidelines for Applicants</a></li>
+                    <li><a>FAQ</a></li>
+                    <li><a>Last Date Extended Notification</a></li>
+                  </ul>
+                </div>
               </Col>
             </Row>
           </Col>
 
-          <Col sm='4'>
-            <div className='notice-box'>
+          <Col sm='3'>
+            <div className='notice-box instruction-box'>
               <h6>Instruction</h6>
             </div>
           </Col>

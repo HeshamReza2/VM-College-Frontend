@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './Login.css'
 import { Col, Container, Row } from 'react-bootstrap'
 function Login() {
     const [ eye, setEye ] = useState('fa-eye')
@@ -42,7 +41,7 @@ function Login() {
 
   return (
     <>
-        <Container className='justify-content-center'>
+        <Container className='justify-content-center login-container'>
             <Row className="justify-content-center">
                 <Col sm='10' className='login-box text-center' style={{display: studentDisplay}}>
                     <Row className="justify-content-center">

@@ -3,8 +3,11 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navebar from './Navebar';
 import Home from './Components/Home';
-import Login from './Components/Login';
 import InstituteDashboard from './Components/Institute/InstituteDashboard';
+import IntakeCapacity from './Components/IntakeCapacity';
+import MeritList from './Components/MeritList';
+import KnowResult from './Components/KnowResult';
+import PaymentStatus from './Components/PaymentStatus';
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
             
             {/* home page route */}
             <Route index element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/intake-capacity' element={<IntakeCapacity />} />
+            <Route path='/merit-list' element={<MeritList />} />
+            <Route path='/know-your-result' element={<KnowResult />} />
+            <Route path='/view-payment-status' element={<PaymentStatus />} />
 
             {/* institute page routes */}
             <Route path='/institute/dashboard' element={<InstituteDashboard />} />
