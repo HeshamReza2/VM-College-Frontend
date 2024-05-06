@@ -76,3 +76,9 @@
         align-items: center;
     }
 }
+
+@media screen and (max-width: 375px) {
+    .table-content .table{
+        
+    }
+}

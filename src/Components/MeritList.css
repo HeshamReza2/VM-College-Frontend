@@ -1,0 +1,33 @@
+.merit-head{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 5px 50px;
+}
+
+.select-list{
+    display: flex;
+    flex-direction: column;
+    /* width: 180px; */
+    color: rgb(202, 0, 0);
+    font-family: "Merriweather", serif;
+}
+
+.select-list select{
+    border: 2px solid rgb(114, 0, 0);
+    font-family: "Josefin Sans", sans-serif;
+    padding: 7px 20px;
+    border-radius: 7px;
+    color: rgb(202, 0, 0);
+
+}
+
+@media screen and (max-width: 768px) {
+    .merit-head{
+        flex-direction: column;
+    }
+
+    .select-list{
+        padding-top: 10px;
+    }
+}

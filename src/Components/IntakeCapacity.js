@@ -64,7 +64,7 @@ function IntakeCapacity() {
           </Col>
 
           <Col sm='12'>
-            <div className='table-content'>
+            <div className='table-content table-responsive-sm'>
               <table className='table'>
                 <thead>
                   <tr>
