@@ -76,7 +76,7 @@ function MeritList() {
     <>
       <Container fluid>
         <Row>
-        <Col sm='12' className='intake-head'>
+          <Col sm='12' className='intake-head'>
             <div className='intake-head-div'>
               <h6>Merit List</h6>
             </div>
