@@ -35,7 +35,7 @@ function Login() {
                                     {/* <input type={passwordType} className='form-control my-3 input-text' autoFocus required name='password' placeholder='Enter your password' />
                                     <i class="fa-solid fa-lock errspan"></i>
                                     <i class={`fa-solid ${eye} view-pass`} onClick={() => viewPassword()}></i> */}
-                                    <select class="form-select input-select" aria-label=".form-select-lg example">
+                                    <select class="form-select input-select" aria-label=".form-select-lg example" autoFocus>
                                         <option selected>Open this select menu</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>

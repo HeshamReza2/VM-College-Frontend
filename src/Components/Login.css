@@ -44,6 +44,22 @@
     padding-left: 40px;
 }
 
+.input-text:focus{
+    outline: 0;
+}
+
+.input-select{
+    width: 100%;
+    height: 34px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 20px;
+}
+
+.input-select:focus{
+    outline: 0;
+}
+
 .errspan{
     float: left;
     margin-left: 12px;
@@ -79,51 +95,6 @@ form{
     margin-top: 40px;
 }
 
-/* @media screen and (max-width: 1024px){
-    .form-group{
-        margin-left: 25px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .form-group{
-        margin-left: 15px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .form-group{
-        margin-left: 37px;
-    }
-
-    .login-box{
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .form-group{
-        margin-left: 32px;
-    }
-
-    .login-box{
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .form-group{
-        margin-left: 26px;
-    }
-
-    .login-box{
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-} */
-
 .btn{
     width: 200px;
     font-family: "Space Grotesk", sans-serif;
@@ -153,17 +124,6 @@ form{
 }
 
 @media screen and (max-width: 768px) {
-    /* .form-group{
-        padding: 0px;
-    } */
-
-    /* form{
-        margin-top: 0px;
-    }
-
-    .login-form-box{
-        margin-top: 20px;
-    } */
     .login-form-box{
         margin-top: 35px !important;
     }
@@ -181,50 +141,4 @@ form{
     .login-form-box{
         margin-top: 80px;
     }
-}
-
-.switch-login{
-    margin-top: 20px;
-    background-color: rgb(151, 151, 255);
-    color: white;
-    padding: 10px 0px;
-    border-radius: 60px;
-}
-
-.switch-login-box{
-    padding: 10px 20px;
-    width: 100%;
-}
-
-.switch-login-box:nth-child(1){
-    border-radius: 50px 0px 0px 50px;
-    margin-right: 20px;
-}
-
-.switch-login-box:nth-child(2){
-    border-radius: 0px 50px 50px 0px;
-    margin-left: 20px;
-}
-
-.active-switch{
-    color: black;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(11.8px);
-    -webkit-backdrop-filter: blur(11.8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.change-button{
-    background: none;
-    border: none;
-    font-size: 22px;
-    font-family: "Space Grotesk", sans-serif;
-    color: black;
-    font-weight: bold;
-}
-
-.change-button:focus {
-    outline: 0 !important;
 }
