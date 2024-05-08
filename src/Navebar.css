@@ -285,3 +285,89 @@
     width: fit-content;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
+
+.sidebarTopMenu{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarMenu{
+    background-color: aliceblue;
+    height: 100vh;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px 20px;
+}
+
+.navbar-nav .instiNavDrop .nav-link:hover a{
+    box-shadow: none;
+    color: red !important;
+    box-shadow: none !important;
+}
+
+.navbar-nav .instiNavDrop:hover{
+    box-shadow: none !important;
+}
+
+.instiNavDrop{
+    padding: 0;
+    margin: 0;
+    align-items: end;
+}
+
+.instiNav .nav-item a{
+    color: black !important;
+}
+
+.navbar-brand a{
+    padding-left: 25px;
+}
+
+.sidebar-menu-sub-toggle{
+    background-color: transparent;
+    border: 0;
+}
+
+.sidebar-menu-sub-toggle:focus{
+    outline: 0;
+}
+
+.sidebar-menu-nav-link{
+    display: flex;
+    text-decoration: none !important;
+    font-size: 20px;
+    color: black;
+}
+
+.sidebar-menu-nav-link:first-child{
+    padding-left: 7px;
+    padding-top: 0px;
+}
+
+.sidebar-menu-nav-link:hover, .sidebar-menu-nav-title:hover{
+    color: red;
+    transform: scale(1.05);
+}
+
+.sidebar-menu-nav-title{
+    display: flex;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.collapsing-text-main{
+    padding-top: 0px;
+    padding-left: 3px;
+}
+
+.collapsing-text, .collapsing-text-icon{
+    font-size: 15px;
+    padding-top: 6px;
+    padding-left: 6px;
+}
+
+.main-menu{
+    padding-left: 3px;
+}
+
+.lastNav .nav-item .nav-link, .lastNav .nav-item .nav-link a{
+    color: black !important;
+}

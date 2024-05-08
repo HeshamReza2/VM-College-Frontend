@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Footer.css'
 import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
 
 function Footer() {
+    const pathname = window.location.href
+
+    const [ including, setIncluding ] = useState(false)
+
+    useEffect(() => {
+        if(pathname?.includes('/institute/')) setIncluding(true)
+        else setIncluding(false)
+    })
+
+    const [ showShow, setShowShow ] = useState(false)
+
+    const toggleShow = () => setShowShow(!showShow)
+
+    const [ topNav, setTopNav ] = useState('block')
+    const [ botNav, setBotNav ] = useState('none')
+    useEffect(() => {
+        if(including){
+            setTopNav('none')
+            setBotNav('block')
+        }
+        else if(!including){
+            setTopNav('block')
+            setBotNav('none')
+        }
+    })
+
   return (
     <>
-        <Container fluid className='footer-container'>
+        <Container fluid className='footer-container' style={{display: topNav}}>
             <Row>
                 <Col className='top-nav-footer p-0' sm='6'>
                     <ul>
@@ -76,7 +102,7 @@ function Footer() {
             </Row>
         </Container>
 
-        <Container>
+        <Container style={{display: topNav}}>
             <Row>
                 <Col sm='12' className='copyright'>
                     <p>Site is technically designed, hosted and maintained by Gen Next Information Technology,Kolkata,West Bengal</p>

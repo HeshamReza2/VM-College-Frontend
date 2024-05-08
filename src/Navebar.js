@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import './Navebar.css'
-import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
+import { Col, Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import { Outlet, useNavigate } from 'react-router'
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarToggler, MDBIcon,  MDBNavbarNav, MDBNavbarItem, MDBNavbarLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBCollapse, MDBRipple, MDBBadge, MDBInput, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 import Footer from './Footer';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Login from './Components/Login'
+import SidebarMenu from 'react-bootstrap-sidebar-menu';
 
 function Navebar() {
     const navigate = useNavigate()
     const pathname = window.location.href
-    console.log(pathname)
 
     const [ homeNav, setHomeNav ] = useState('nav-item-active')
     const [ capatcityNav, setCapacityNav ] = useState('')
@@ -61,7 +61,6 @@ function Navebar() {
     })
 
     const [ including, setIncluding ] = useState(false)
-    console.log(including)
 
     useEffect(() => {
         if(pathname?.includes('/institute/')) setIncluding(true)
@@ -112,7 +111,6 @@ function Navebar() {
     })
 
     const [ matches, setMatches ] = useState(window.matchMedia('(max-width: 425px)').matches)
-    console.log(matches);
 
     const popupStyle = () => {
         if(matches == true) return {'width': '100%'}
@@ -125,12 +123,69 @@ function Navebar() {
             .addEventListener('change', e => setMatches( e.matches ))
     })
 
+    const [ collapsing, setCollapsing ] = useState('block')
+    const [ collapsing1, setCollapsing1 ] = useState('block')
+    const [ collapsing2, setCollapsing2 ] = useState('none')
+    const [ matches2, setMatches2 ] = useState(window.matchMedia('(max-width: 768px)').matches)
+    const [ xsAmount1, setXsAmount1 ] = useState(3)
+    const [ xsAmount2, setXsAmount2 ] = useState(9)
+
+    const toggleCollapse = () => {
+        if(collapsing == 'block'){
+            setCollapsing('none')
+            setXsAmount1(1)
+            setXsAmount2(11)
+        }
+        else if(collapsing == 'none'){
+            setCollapsing('block')
+            setXsAmount1(2)
+            setXsAmount2(10)
+        }
+    }
+
+    useEffect(() => {
+        window
+            .matchMedia('(max-width: 768px)')
+            .addEventListener('change', e => setMatches2( e.matches ))
+    })
+
+    useEffect(() => {
+        if(matches2 == true && matches == false){
+            setCollapsing('none')
+            setXsAmount1(1)
+            setXsAmount2(11)
+            setCollapsing1('block')
+            setCollapsing2('none')
+        }
+        else if(matches2 == false && matches == false){
+            setCollapsing('block')
+            setXsAmount1(2)
+            setXsAmount2(10)
+            setCollapsing1('block')
+            setCollapsing2('none')
+        }
+        else if(matches == true && matches2 == true){
+            setCollapsing1('none')
+            setCollapsing2('block')
+            setXsAmount1(12)
+            setXsAmount2(12)
+        }
+        else if(matches == false && matches2 == true){
+            setCollapsing1('block')
+            setCollapsing2('none')
+            setXsAmount1(1)
+            setXsAmount2(11)
+        }
+    }, [matches, matches2])
+    
+    const [ show, setShow ] = useState(false)
+
   return (
     <> 
-        <Container fluid>
+        <Container fluid style={{display: topNav}}>
             <Row>
                 <Col className='p-0'>
-                    <Navbar expand='lg' className='bg-body-tertiary top-navigasion' style={{display: topNav}}>
+                    <Navbar expand='lg' className='bg-body-tertiary top-navigasion'>
                         <Container fluid>
                             <Navbar.Toggle aria-controls='basic-navbar-nav' />
 
@@ -163,7 +218,7 @@ function Navebar() {
                         </Container>
                     </Navbar>
 
-                    <Navbar expand='lg' className='bg-body-tertiary mid-navigasion' style={{display: topNav}}>
+                    <Navbar expand='lg' className='bg-body-tertiary mid-navigasion'>
                         <Container fluid className='container-brand'>
                             <Navbar.Brand>
                                 <img src='../vm_logo.png' alt='VM College Logo' />
@@ -184,7 +239,7 @@ function Navebar() {
                         </Container>
                     </Navbar>
 
-                    <Navbar expand='lg' className='bg-body-tertiary navigasion' style={{display: topNav}}>
+                    <Navbar expand='lg' className='bg-body-tertiary navigasion'>
                         <Container>
                             
                             <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -285,14 +340,376 @@ function Navebar() {
                         </Container>
                     </Navbar>
 
-                    {/* <Navbar expand='lg' className='bg-body-tertiary' style={{display: botNav}}></Navbar> */}
+                    {/* <Navbar expand='lg' className='bg-body-tertiary mid-navigasion' style={{display: botNav}}>
+                        <Container fluid className='container-brand'>
+                            <Navbar.Brand>
+                                <img src='../vm_logo.png' alt='VM College Logo' />
+                            </Navbar.Brand>
+                        </Container>
+                    </Navbar>
+
+                    <Navbar expand='lg' className='bg-body-tertiary' style={{display: botNav}}></Navbar> */}
+                </Col>
+            </Row>
+
+            <Outlet />
+        </Container>
+
+        <Footer />
+
+        <Container fluid style={{display: botNav}}>
+            <Row>
+                <Col sm='12' className='sidebarTopMenu'>
+                    <Navbar expand='lg' className='bg-body-tertiary'>
+                        <Container fluid>
+                            <Navbar.Brand>
+                                <h4>VM Admission</h4>
+                            </Navbar.Brand>
+
+                            <Nav className='me-auto instiNav' id='responsive-navbar-nav'>
+                                <NavDropdown title={<a><i class="fa-solid fa-user"></i></a>} id='collapsible-nav-dropdown' className='instiNavDrop' onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} show={show} alignRight menuVariant="dark">
+                                        <NavDropdown.Item className='dropdownAcc'>Settings</NavDropdown.Item>
+                                        <NavDropdown.Item className='dropdownAcc'>Log Out</NavDropdown.Item>
+                                    </NavDropdown>
+                                {/* <Nav.Item>
+                                    <a><i class="fa-solid fa-user"></i></a>
+                                </Nav.Item> */}
+                            </Nav>
+                        </Container>
+                    </Navbar>
+                </Col>
+                <Col xs={xsAmount1} style={{display: collapsing1}} onMouseOver={() => { setCollapsing('block'); setXsAmount1(2); setXsAmount2(10) }} onMouseLeave={() => { setCollapsing('none'); setXsAmount1(1); setXsAmount2(11) }} style={{display: collapsing1}} className='sidebarMenu'>
+                    <SidebarMenu>
+                        <SidebarMenu.Body>
+                            <SidebarMenu.Nav>
+                                <SidebarMenu.Nav.Link>
+                                    <SidebarMenu.Nav.Icon>
+                                        <a><i class="fa-solid fa-gauge"></i></a>
+                                    </SidebarMenu.Nav.Icon>
+                                    <SidebarMenu.Nav.Title className='collapsing-text-main' style={{display: collapsing}}> Dashboard </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Nav.Link>
+                            </SidebarMenu.Nav>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-building-columns"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Admission</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Admitted Student </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                        
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Non Admitted Student </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-book"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Examination</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user-plus collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Paid Student </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                        
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user-minus collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Non Paid Student </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-chart-simple"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Report</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user-xmark collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Admission Fees </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                        
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-chart-pie collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Examination Fees </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-user"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Institution</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-graduation-cap collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Manage Student </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Add Manager </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-file collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Notice </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-money-bill-wave collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Fees Management </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-xmark collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Open & Close </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-circle-question collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Question Paper </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-clock collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Schedule </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-person-through-window collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Intake </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-comment-sms"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Bulk SMS</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-gauge"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Dashboard </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-gear collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Settings </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-comment-sms collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> SMS </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-chart-simple collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Report </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+
+                            <SidebarMenu.Sub>
+                                <SidebarMenu.Sub.Toggle>
+                                    <SidebarMenu.Nav.Title>
+                                        <a><i class="fa-solid fa-envelope"></i></a>
+                                        <a className='main-menu' style={{display: collapsing}}>Email SMS</a>
+                                    </SidebarMenu.Nav.Title>
+                                </SidebarMenu.Sub.Toggle>
+
+                                <SidebarMenu.Sub.Collapse>
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-gear collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Settings </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-comment-sms collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> SMS </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                    
+                                    <SidebarMenu.Nav>
+                                        <SidebarMenu.Nav.Link>
+                                            <SidebarMenu.Nav.Icon>
+                                                <a><i class="fa-solid fa-chart-simple collapsing-text-icon"></i></a>
+                                            </SidebarMenu.Nav.Icon>
+                                            <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Report </SidebarMenu.Nav.Title>
+                                        </SidebarMenu.Nav.Link>
+                                    </SidebarMenu.Nav>
+                                </SidebarMenu.Sub.Collapse>
+                            </SidebarMenu.Sub>
+                        </SidebarMenu.Body>
+                    </SidebarMenu>
+                </Col>
+
+                <Col xs={xsAmount1} style={{display: collapsing2}}>
+                    <Navbar expand='lg' className='bg-body-tertiary'>
+                        <Container>
+                            <Navbar.Toggle aria-controls='basic-navbar-nav' />
+
+                            <Navbar.Collapse collapseOnSelect className='justify-content-between'>
+                                <Nav className='me-auto lastNav'>
+                                    <Nav.Item>
+                                        <Nav.Link>
+                                            <a>Dashboard</a>
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                    
+                                    <NavDropdown title='Admission' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Admitted Student</NavDropdown.Item>
+                                        <NavDropdown.Item>Non Admitted Student</NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    <NavDropdown title='Examination' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Paid Student</NavDropdown.Item>
+                                        <NavDropdown.Item>Non Paid Student</NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    <NavDropdown title='Report' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Admission Fees</NavDropdown.Item>
+                                        <NavDropdown.Item>Examination Fees</NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    <NavDropdown title='Institution' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Manage Student</NavDropdown.Item>
+                                        <NavDropdown.Item>Add Manager</NavDropdown.Item>
+                                        <NavDropdown.Item>Notice</NavDropdown.Item>
+                                        <NavDropdown.Item>Fees Management</NavDropdown.Item>
+                                        <NavDropdown.Item>Open & Close</NavDropdown.Item>
+                                        <NavDropdown.Item>Question Paper</NavDropdown.Item>
+                                        <NavDropdown.Item>Schedule</NavDropdown.Item>
+                                        <NavDropdown.Item>Intake</NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    <NavDropdown title='Bulk SMS' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                                        <NavDropdown.Item>Settings</NavDropdown.Item>
+                                        <NavDropdown.Item>SMS</NavDropdown.Item>
+                                        <NavDropdown.Item>Report</NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                    <NavDropdown title='Email SMS' id='collapsible-nav-dropdown'>
+                                        <NavDropdown.Item>Settings</NavDropdown.Item>
+                                        <NavDropdown.Item>SMS</NavDropdown.Item>
+                                        <NavDropdown.Item>Report</NavDropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+                            </Navbar.Collapse>
+                        </Container>
+                    </Navbar>
+                </Col>
+
+                <Col xs={xsAmount2} className='p-0'>
+                    <Outlet />
                 </Col>
             </Row>
         </Container>
-
-        <Outlet />
-
-        <Footer />
     </>
   )
 }
