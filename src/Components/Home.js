@@ -1,8 +1,10 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './Home.css'
+import { useNavigate } from 'react-router'
 
 function Home() {
+  const navigate = useNavigate()
   return (
     <Container fluid>
       <Row>
@@ -20,7 +22,7 @@ function Home() {
           <Col sm='9'>
             <Row className='justify-content-center'>
               <Col sm='6' className='equal-height-column admission-box-column'>
-                <Row className='admission-box'>
+                <Row className='admission-box' onClick={() => navigate('/login')}>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For UG</h6>
                   <p><a>Online Admission 2023-27 for UG-2nd Semester</a></p>
@@ -70,7 +72,7 @@ function Home() {
               </Col>
               
               <Col sm='6' className='equal-height-column admission-box-column'>
-                <Row className='admission-box'>
+                <Row className='admission-box' onClick={() => navigate('/login')}>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For Inter-</h6>
                   <p><a>Oops! Admission Closed.</a></p>

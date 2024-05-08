@@ -98,18 +98,6 @@ function Navebar() {
         }
     }
 
-    const [ studentDisplay, setStudentDisplay ] = useState('block')
-    const [ instituteDisplay, setInstituteDisplay ] = useState('none')
-
-    useEffect(() => {
-        if(studentDisplay == 'none'){
-            setInstituteDisplay('block')
-        }
-        else if(studentDisplay == 'block'){
-            setInstituteDisplay('none')
-        }
-    })
-
     const [ matches, setMatches ] = useState(window.matchMedia('(max-width: 425px)').matches)
 
     const popupStyle = () => {
@@ -271,7 +259,7 @@ function Navebar() {
                                     <Nav.Item>
                                         {/* <Nav.Link onClick={() => navigate('/login')}>Login</Nav.Link> */}
 
-                                        <Popup trigger={<button className='log-btn'>Log In</button>} modal nested contentStyle={popupStyle()}>
+                                        <Popup trigger={<button className='log-btn'>Institute Log In</button>} modal nested contentStyle={popupStyle()}>
                                             {
                                                 close => (
                                                     <>
@@ -281,31 +269,7 @@ function Navebar() {
                                                                     <button className='close-btn' onClick={() => close()}><i class="fa-solid fa-xmark"></i></button>
                                                                 </Col>
 
-                                                                <Col sm='12' className='login-box student' style={{display: studentDisplay}}>
-                                                                    <h4>Student Login</h4>
-
-                                                                    <form>
-                                                                        <div className='form-group'>
-                                                                            <input type='text' className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter your username' />
-                                                                            <i class="fa-solid fa-user icon-align"></i>
-                                                                        </div>
-                                                                        
-                                                                        <div className='form-group'>
-                                                                            <input type={passwordType} className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter your username' />
-                                                                            <i class="fa-solid fa-user icon-align"></i>
-                                                                            <i class={`fa-solid ${eye} view-pass`} onClick={() => viewPassword()}></i>
-                                                                        </div>
-
-                                                                        <div className='buttons'>
-                                                                            <button className='btn btn-log'>Log In</button>
-                                                                        </div>
-                                                                    </form>
-
-                                                                    <a><p>Forgot Password?</p></a>
-                                                                    <a onClick={() => { setStudentDisplay('none')}}><p>Institute Log In</p></a>
-                                                                </Col>
-
-                                                                <Col sm='12' className='login-box institute' style={{display: instituteDisplay}}>
+                                                                <Col sm='12' className='login-box institute'>
                                                                     <h4>Institute Login</h4>
 
                                                                     <form>
@@ -326,7 +290,6 @@ function Navebar() {
                                                                     </form>
 
                                                                     <a><p>Forgot Password?</p></a>
-                                                                    <a onClick={() => { setStudentDisplay('block')}}><p>Student Log In</p></a>
                                                                 </Col>
                                                             </Row>
                                                         </Container>
@@ -378,7 +341,7 @@ function Navebar() {
                         </Container>
                     </Navbar>
                 </Col>
-                <Col xs={xsAmount1} style={{display: collapsing1}} onMouseOver={() => { setCollapsing('block'); setXsAmount1(2); setXsAmount2(10) }} onMouseLeave={() => { setCollapsing('none'); setXsAmount1(1); setXsAmount2(11) }} style={{display: collapsing1}} className='sidebarMenu'>
+                <Col xs={xsAmount1} style={{display: collapsing1}} onMouseOver={() => { setCollapsing('block'); setXsAmount1(2); setXsAmount2(10) }} onMouseLeave={() => { setCollapsing('none'); setXsAmount1(1); setXsAmount2(11) }} className='sidebarMenu'>
                     <SidebarMenu>
                         <SidebarMenu.Body>
                             <SidebarMenu.Nav>

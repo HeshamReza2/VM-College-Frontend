@@ -8,6 +8,7 @@ import IntakeCapacity from './Components/IntakeCapacity';
 import MeritList from './Components/MeritList';
 import KnowResult from './Components/KnowResult';
 import PaymentStatus from './Components/PaymentStatus';
+import Login from './Components/Login';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
             <Route path='/merit-list' element={<MeritList />} />
             <Route path='/know-your-result' element={<KnowResult />} />
             <Route path='/view-payment-status' element={<PaymentStatus />} />
+            
+            <Route path='/login' element={<Login />} />
 
             {/* institute page routes */}
             <Route path='/institute/dashboard' element={<InstituteDashboard />} />
