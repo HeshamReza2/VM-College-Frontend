@@ -16,7 +16,7 @@ function KnowResult() {
     <>
       <Container fluid>
         <Row>
-          <Col ssm='12' className='intake-head'>
+          <Col sm='12' className='intake-head'>
             <div className='intake-head-div'>
               <h6>Result Status</h6>
             </div>

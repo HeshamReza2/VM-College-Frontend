@@ -8,6 +8,11 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Login from './Components/Login'
 import SidebarMenu from 'react-bootstrap-sidebar-menu';
+import axios from 'axios';
+import Cookies from 'universal-cookie'
+
+
+const cookies = new Cookies()
 
 function Navebar() {
     const navigate = useNavigate()
@@ -168,6 +173,51 @@ function Navebar() {
     
     const [ show, setShow ] = useState(false)
 
+    const [ loginData, setLoginData ] = useState({
+        username: '',
+        password: ''
+    })
+
+    console.log(loginData)
+
+    const updateLoginData = e => {
+        setLoginData({
+            ...loginData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const [ valid, setValid ] = useState(false)
+    console.log(valid);
+
+    useEffect(() => {
+        axios
+            .post('http://localhost:8080/admin/search', { username: loginData.username })
+            .then(({ data }) => {
+                if(data == null || data == undefined || data == []){
+                    setValid(false)
+                }
+                else{
+                    axios
+                        .post('http://localhost:8080/admin/login', loginData)
+                        .then(({ data }) => {
+                            if(data == 'Invalid') setValid(false)
+                            else if(data == 'Valid') setValid(true)
+                        })
+                }
+            })
+            .catch(err => console.log(err))
+    })
+
+    const loginAdmin = () => {
+        if(valid == false) alert('Username Invalid!')
+        else if(valid == true){
+            navigate('/institute/dashboard')
+            cookies.set('username', loginData.username, { path: '/', maxAge: 3600*24*2 })
+            cookies.set('password', loginData.password, { path: '/', maxAge: 3600*24*2 })
+        }
+    }
+
   return (
     <> 
         <Container fluid style={{display: topNav}}>
@@ -272,19 +322,19 @@ function Navebar() {
                                                                 <Col sm='12' className='login-box institute'>
                                                                     <h4>Institute Login</h4>
 
-                                                                    <form>
+                                                                    <form onSubmit={loginAdmin}>
                                                                         <div className='form-group'>
-                                                                            <input type='text' className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter your username' />
+                                                                            <input type='text' className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter Your Username' onChange={updateLoginData} />
                                                                             <i class="fa-solid fa-user icon-align"></i>
                                                                         </div>
                                                                         
                                                                         <div className='form-group'>
-                                                                            <input type={passwordType} className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter your username' />
-                                                                            <i class="fa-solid fa-user icon-align"></i>
+                                                                            <input type={passwordType} className='form-control my-3 input-text' autoFocus required name='password' placeholder='Enter Your Password' onChange={updateLoginData} />
+                                                                            <i class="fa-solid fa-key icon-align"></i>
                                                                             <i class={`fa-solid ${eye} view-pass`} onClick={() => viewPassword()}></i>
                                                                         </div>
 
-                                                                        <div className='buttons'>
+                                                                        <div className='buttons-1'>
                                                                             <button className='btn btn-log'>Log In</button>
                                                                         </div>
                                                                     </form>

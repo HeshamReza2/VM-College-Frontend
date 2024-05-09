@@ -212,6 +212,14 @@
     color: rgb(202, 0, 0);
     background-color: white;
     font-weight: bold;
+    border: 1px solid rgb(202, 0, 0);
+}
+
+.btn-log:hover{
+    color: white;
+    background-color: rgb(202, 0, 0);
+    font-weight: bold;
+    border: 1px solid white;
 }
 
 .login-box{
@@ -261,13 +269,9 @@
 .login-box a p{
     color: white;
     margin-top: 25px;
-    padding: 2px 10px;
+    padding: 2px 10px 0px 10px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.login-box a:last-child p{
-    margin: 0;
 }
 
 .login-box a:focus{
