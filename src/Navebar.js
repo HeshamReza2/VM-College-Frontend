@@ -318,7 +318,7 @@ function Navebar() {
             <Outlet />
         </Container>
 
-        <Footer />
+        <Footer/>
 
         <Container fluid style={{display: botNav}}>
             <Row>

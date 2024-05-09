@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './Login.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router'
+
 function Login() {
+    const navigate = useNavigate()
     const [ eye, setEye ] = useState('fa-eye')
     const [ passwordType, setPasswordType ] = useState('password')
 
@@ -16,43 +20,78 @@ function Login() {
         }
     }
 
+    const [ data, setData ] = useState({
+        registration_no: '',
+        course: ''
+    })
+
+    console.log(data)
+
+    const updateData = e => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const [ subjects, setSubjects ] = useState([])
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/subjects')
+            .then(res => setSubjects(res.data))
+            .catch(err => console.log(err))
+    }, [])
+
+    const [ res, setRes ] = useState([])
+
+    useEffect(() => {
+        axios
+            .post('http://localhost:8080/single-student', data)
+            .then(res => setRes(res.data[0]))
+            .catch(err => console.log(err))
+    })
+
+    const checkStudent = () => {
+        if(data.registration_no == '' || data.course == ''){
+            alert('Please Enter Your Details Properly')
+        }
+        else{
+            if(res == [] || res == undefined){
+                alert('Please Enter Your Details Properly')
+            }
+            else if(res != [] || res !== undefined){
+                navigate('/student-details', { state: res })
+            }
+        }
+    }
+
   return (
     <>
-        <Container className='justify-content-center login-container'>
-            <Row className="justify-content-center">
-                <Col sm='10' className='login-box text-center'>
-                    <Row className="justify-content-center">
-                        <Col sm='6' className='login-form-box login-form-box-student'>
-                            <h4>Student Login</h4>
+        <Container fluid className='justify-content-center login-container'>
+            <Row className="justify-content-center login-row">
+                <Col sm='6' className='login-box2 text-center'>
+                    <form className='login-form2' onSubmit={checkStudent}>
+                        <div className='form-group'>
+                            <input type='text' className='form-control my-3 input-text' autoFocus required name='registration_no' placeholder='Enter Your Registration Number' onChange={updateData} />
+                            <i class="fa-solid fa-user errspan"></i>
+                        </div>
 
-                            <form>
-                                <div className='form-group'>
-                                    <input type='text' className='form-control my-3 input-text' autoFocus required name='reg_no' placeholder='Enter Your Registration Number' />
-                                    <i class="fa-solid fa-user errspan"></i>
-                                </div>
+                        <div className='form-group'>
+                            <select class="form-select input-select" aria-label=".form-select-lg example" autoFocus name='course' onChange={updateData} >
+                                <option selected hidden value=''>Select Your Course</option>
+                                {subjects && subjects.map((item, index) => {
+                                    return(
+                                        <option key={index} value={item.subject}>{item.subject}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
 
-                                <div className='form-group'>
-                                    {/* <input type={passwordType} className='form-control my-3 input-text' autoFocus required name='password' placeholder='Enter your password' />
-                                    <i class="fa-solid fa-lock errspan"></i>
-                                    <i class={`fa-solid ${eye} view-pass`} onClick={() => viewPassword()}></i> */}
-                                    <select class="form-select input-select" aria-label=".form-select-lg example" autoFocus>
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-
-                                <div className='buttons'>
-                                    <button className='btn btn-primary'>Log In</button>
-                                </div>
-                            </form>
-                        </Col>
-
-                        <Col sm='6' className='login-img-box-student'>
-                            <img src='../images/student.jpg' alt='Student Vector Art' />
-                        </Col>
-                    </Row>
+                        <div className='buttons'>
+                            <button className='btn btn-primary'>Search</button>
+                        </div>
+                    </form>
                 </Col>
             </Row>
         </Container>

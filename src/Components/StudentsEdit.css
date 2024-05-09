@@ -1,0 +1,21 @@
+.details-edit-student{
+    border: 2px solid grey;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.details-edit-student .form-group-4{
+    color: rgb(202, 0, 0);
+}
+
+.details-edit-student .form-group-4 label{
+    margin-bottom: 0;
+}
+
+.details-edit-student .form-group-4 .form-control{
+    padding-top: 5px;
+}
+
+.buttons{
+    text-align: center;
+}

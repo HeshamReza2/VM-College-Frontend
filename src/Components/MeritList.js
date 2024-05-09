@@ -121,7 +121,7 @@ function MeritList() {
           </Col>
 
           <Col sm='12'>
-            <div className='table-content table-responsive-sm'>
+            <div className='table-content table-responsive-xl'>
               <InfiniteScroll dataLength={meritData.length} next={fetchData} hasMore={true} loader={<p>Loading...</p>} endMessage={<p>No more data to load.</p>}>
                 <table className='table'>
                   <thead>
