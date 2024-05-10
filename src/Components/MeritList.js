@@ -122,7 +122,6 @@ function MeritList() {
 
           <Col sm='12'>
             <div className='table-content table-responsive-xl'>
-              <InfiniteScroll dataLength={meritData.length} next={fetchData} hasMore={true} loader={<p>Loading...</p>} endMessage={<p>No more data to load.</p>}>
                 <table className='table'>
                   <thead>
                     <tr>
@@ -153,9 +152,6 @@ function MeritList() {
                     })}
                   </tbody>
                 </table>
-              </InfiniteScroll>
-
-              {error && <p>Error: {error.message}</p>}
             </div>
           </Col>
 

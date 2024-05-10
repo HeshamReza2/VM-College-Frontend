@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './InstituteDashboard.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import CanvasJSReact from '@canvasjs/react-charts'
+import { useNavigate } from 'react-router'
+import Cookies from 'universal-cookie'
+
+
+const cookies = new Cookies()
 
 function InstituteDashboard() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!cookies.get('username')){
+      navigate('/')
+    }
+    
+    else if(!cookies.get('password')){
+      navigate('/')
+    }
+  })
   const studentsData = [
     { name: 'Admitted Students', students: 924},
     { name: 'Total Students', students: 1126}
@@ -42,7 +58,7 @@ function InstituteDashboard() {
           <div className='dashboard-bottom'>
             <p>Powered By: Gen Next Information Technology </p>
 
-            <p>Email to: <a href='mailto:developer@gnextit.com'>developer@gnextit.com</a> / <a href='mailto:info@gnextit.com/conplaint@gnextit.com'>info@gnextit.com/conplaint@gnextit.com</a></p>
+            <p>Email to: <a href='mailto:developer@gnextit.com'>developer@gnextit.com</a> / <a href='mailto:info@gnextit.com'>info@gnextit.com</a> / <a href='mailto:conplaint@gnextit.com'>conplaint@gnextit.com</a></p>
 
             <p>Talk to: 8017010592 / 9734103591</p>
           </div>

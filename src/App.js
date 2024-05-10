@@ -13,6 +13,9 @@ import StudentDetails from './Components/StudentDetails';
 import StudentsEdit from './Components/StudentsEdit';
 import SabpaisaPage from './Components/SabpaisaPage';
 import SabpaisaStatus from './Components/SabpaisaStatus';
+import StudentReview from './Components/StudentReview';
+import AdmittedStudents from './Components/Institute/AdmittedStudents';
+import NonadmittedStudent from './Components/Institute/NonadmittedStudent';
 
 function App() {
   return (
@@ -32,9 +35,12 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/student-details' element={<StudentDetails />} />
             <Route path='/student-details-edit' element={<StudentsEdit />} />
+            <Route path='/student-details-review' element={<StudentReview />} />
 
             {/* institute page routes */}
             <Route path='/institute/dashboard' element={<InstituteDashboard />} />
+            <Route path='/institute/admitted-student' element={<AdmittedStudents />} />
+            <Route path='/institute/non-admitted-student' element={<NonadmittedStudent />} />
 
             {/* payment route */}
             <Route path='/payment' element={<SabpaisaPage />} />

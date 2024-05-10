@@ -78,7 +78,7 @@ function KnowResult() {
           </Col>
 
           <Col sm='12'>
-            <div className='table-content table-responsive-sm'>
+            <div className='table-content table-responsive-xl'>
               <table className='table'>
                 <thead>
                   <tr>

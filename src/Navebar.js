@@ -209,15 +209,6 @@ function Navebar() {
             .catch(err => console.log(err))
     })
 
-    const loginAdmin = () => {
-        if(valid == false) alert('Username Invalid!')
-        else if(valid == true){
-            navigate('/institute/dashboard')
-            cookies.set('username', loginData.username, { path: '/', maxAge: 3600*24*2 })
-            cookies.set('password', loginData.password, { path: '/', maxAge: 3600*24*2 })
-        }
-    }
-
   return (
     <> 
         <Container fluid style={{display: topNav}}>
@@ -322,7 +313,7 @@ function Navebar() {
                                                                 <Col sm='12' className='login-box institute'>
                                                                     <h4>Institute Login</h4>
 
-                                                                    <form onSubmit={loginAdmin}>
+                                                                    <form>
                                                                         <div className='form-group'>
                                                                             <input type='text' className='form-control my-3 input-text' autoFocus required name='username' placeholder='Enter Your Username' onChange={updateLoginData} />
                                                                             <i class="fa-solid fa-user icon-align"></i>
@@ -335,7 +326,16 @@ function Navebar() {
                                                                         </div>
 
                                                                         <div className='buttons-1'>
-                                                                            <button className='btn btn-log'>Log In</button>
+                                                                            <button className='btn btn-log' onClick={e => {
+                                                                                e.preventDefault()
+                                                                                if(valid == false) alert('Username Invalid!')
+                                                                                else if(valid == true){
+                                                                                    cookies.set('username', loginData.username, { path: '/', maxAge: 3600*24*2 })
+                                                                                    cookies.set('password', loginData.password, { path: '/', maxAge: 3600*24*2 })
+                                                                                    navigate('/institute/dashboard')
+                                                                                    close()
+                                                                                }
+                                                                            }}>Log In</button>
                                                                         </div>
                                                                     </form>
 
@@ -374,8 +374,8 @@ function Navebar() {
             <Row>
                 <Col sm='12' className='sidebarTopMenu'>
                     <Navbar expand='lg' className='bg-body-tertiary'>
-                        <Container fluid>
-                            <Navbar.Brand>
+                        <Container>
+                            <Navbar.Brand onClick={() => navigate('/')}>
                                 <h4>VM Admission</h4>
                             </Navbar.Brand>
 
@@ -395,7 +395,7 @@ function Navebar() {
                     <SidebarMenu>
                         <SidebarMenu.Body>
                             <SidebarMenu.Nav>
-                                <SidebarMenu.Nav.Link>
+                                <SidebarMenu.Nav.Link onClick={() => navigate('/institute/dashboard')}>
                                     <SidebarMenu.Nav.Icon>
                                         <a><i class="fa-solid fa-gauge"></i></a>
                                     </SidebarMenu.Nav.Icon>
@@ -413,18 +413,18 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/admitted-student')}>
                                             <SidebarMenu.Nav.Icon>
-                                                <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
+                                                <a><i class="fa-solid fa-user-check collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
                                             <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Admitted Student </SidebarMenu.Nav.Title>
                                         </SidebarMenu.Nav.Link>
                                     </SidebarMenu.Nav>
                                         
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/non-admitted-student')}>
                                             <SidebarMenu.Nav.Icon>
-                                                <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
+                                                <a><i class="fa-solid fa-user-xmark collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
                                             <SidebarMenu.Nav.Title className='collapsing-text' style={{display: collapsing}}> Non Admitted Student </SidebarMenu.Nav.Title>
                                         </SidebarMenu.Nav.Link>
@@ -674,22 +674,22 @@ function Navebar() {
                                         </Nav.Link>
                                     </Nav.Item>
                                     
-                                    <NavDropdown title='Admission' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Admission' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Admitted Student</NavDropdown.Item>
                                         <NavDropdown.Item>Non Admitted Student</NavDropdown.Item>
                                     </NavDropdown>
                                     
-                                    <NavDropdown title='Examination' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Examination' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Paid Student</NavDropdown.Item>
                                         <NavDropdown.Item>Non Paid Student</NavDropdown.Item>
                                     </NavDropdown>
                                     
-                                    <NavDropdown title='Report' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Report' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Admission Fees</NavDropdown.Item>
                                         <NavDropdown.Item>Examination Fees</NavDropdown.Item>
                                     </NavDropdown>
                                     
-                                    <NavDropdown title='Institution' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Institution' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Manage Student</NavDropdown.Item>
                                         <NavDropdown.Item>Add Manager</NavDropdown.Item>
                                         <NavDropdown.Item>Notice</NavDropdown.Item>
@@ -700,14 +700,14 @@ function Navebar() {
                                         <NavDropdown.Item>Intake</NavDropdown.Item>
                                     </NavDropdown>
                                     
-                                    <NavDropdown title='Bulk SMS' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Bulk SMS' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
                                         <NavDropdown.Item>Settings</NavDropdown.Item>
                                         <NavDropdown.Item>SMS</NavDropdown.Item>
                                         <NavDropdown.Item>Report</NavDropdown.Item>
                                     </NavDropdown>
                                     
-                                    <NavDropdown title='Email SMS' id='collapsible-nav-dropdown'>
+                                    <NavDropdown title='Email SMS' id='collapsible-nav-dropdown' className='institute-dropdown'>
                                         <NavDropdown.Item>Settings</NavDropdown.Item>
                                         <NavDropdown.Item>SMS</NavDropdown.Item>
                                         <NavDropdown.Item>Report</NavDropdown.Item>

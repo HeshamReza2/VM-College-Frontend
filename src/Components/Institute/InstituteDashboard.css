@@ -85,5 +85,12 @@
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        margin-top: 28px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .dashboard-bottom{
+        margin-top: 70px;
     }
 }

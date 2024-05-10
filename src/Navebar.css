@@ -375,3 +375,19 @@
 .lastNav .nav-item .nav-link, .lastNav .nav-item .nav-link a{
     color: black !important;
 }
+
+.lastNav .nav-item:hover .nav-link a{
+    color: rgb(220, 0, 0) !important;
+}
+
+.institute-dropdown .nav-link:hover{
+    color: rgb(220, 0, 0) !important;
+}
+
+.institute-dropdown .dropdown-menu .dropdown-item{
+    color: black !important;
+}
+
+.institute-dropdown .dropdown-menu .dropdown-item:hover{
+    color: rgb(220, 0, 0) !important;
+}
