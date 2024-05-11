@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react'
+import './ManageStudent.css'
 import { Col, Container, Row } from 'react-bootstrap'
-import './NonadmittedStudent.css'
 import axios from 'axios'
 
-function NonadmittedStudent() {
-    const [ studentsList2, setStudentsList2 ] = useState([])
-    console.log(studentsList2)
+function ManageStudent() {
+    const [ studentsList3, setStudentsList3 ] = useState([])
+    console.log(studentsList3);
 
     useEffect(() => {
         axios
-            .post('http://localhost:8080/find-student', { field: 'admission_status', value: 'false' })
-            .then((res) => setStudentsList2(res.data))
+            .get('http://localhost:8080/students')
+            .then(res => setStudentsList3(res.data))
             .catch(err => console.log(err))
     })
-    
-    const [ entriesNum, setEntriesNum ] = useState(10)
 
-    const entriesNumCount = () => {
-        if(entriesNum <= studentsList2.length) return entriesNum
-        else return studentsList2.length
+    const admissionStatus = (status) => {
+        if(status == false) return 'Payment Not Done'
+        else return 'Payment Done'
     }
   return (
     <Container fluid>
         <Row>
             <Col sm='12' className='dashboard-header'>
                 <div className='dashboard-top'>
-                    <a><i class="fa-solid fa-user-xmark"></i></a>
-                    <h6>Non-Admitted Student</h6>
+                    <a><i class="fa-solid fa-graduation-cap"></i></a>
+                    <h6>Manage Student</h6>
                 </div>
 
                 <div className='dashboard-bottom'>
@@ -51,13 +49,14 @@ function NonadmittedStudent() {
                                 <th scope='col'>Roll No</th>
                                 <th scope='col'>Mobile</th>
                                 <th scope='col'>Amount</th>
+                                <th scope='col'>Admission Status</th>
                                 <th scope='col'>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             {
-                                studentsList2 && studentsList2.map((item, index) => {
+                                studentsList3 && studentsList3.map((item, index) => {
                                     return(
                                         <tr key={index}>
                                             <td>{item.name}</td>
@@ -68,6 +67,7 @@ function NonadmittedStudent() {
                                             <td>{item.roll}</td>
                                             <td>{item.mobile}</td>
                                             <td>{item.amount}</td>
+                                            <td>{admissionStatus(item.admission_status)}</td>
                                             <td>Action</td>
                                         </tr>
                                     )
@@ -82,4 +82,4 @@ function NonadmittedStudent() {
   )
 }
 
-export default NonadmittedStudent
+export default ManageStudent

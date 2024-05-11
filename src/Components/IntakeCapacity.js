@@ -1,33 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './IntakeCapacity.css'
 import { Col, Container, Row } from 'react-bootstrap'
+import axios from 'axios'
 
 function IntakeCapacity() {
   const [ entriesNum, setEntriesNum ] = useState(10)
-  console.log(entriesNum)
 
-  const [ entryData, setEntryData ] = useState([
-    {program: 'UG', subject: 'Bengali', capacity: '25'},
-    {program: 'UG', subject: 'English', capacity: '25'},
-    {program: 'UG', subject: 'Hindi', capacity: '25'},
-    {program: 'UG', subject: 'Mathematics', capacity: '25'},
-    {program: 'UG', subject: 'Physics', capacity: '25'},
-    {program: 'UG', subject: 'Chemistry', capacity: '25'},
-    {program: 'UG', subject: 'Botany', capacity: '25'},
-    {program: 'UG', subject: 'Zoology', capacity: '25'},
-    {program: 'UG', subject: 'History', capacity: '25'},
-    {program: 'UG', subject: 'Geography', capacity: '25'},
-    {program: 'PG', subject: 'Bengali', capacity: '25'},
-    {program: 'PG', subject: 'English', capacity: '25'},
-    {program: 'PG', subject: 'Hindi', capacity: '25'},
-    {program: 'PG', subject: 'Mathematics', capacity: '25'},
-    {program: 'PG', subject: 'Physics', capacity: '25'},
-    {program: 'PG', subject: 'Chemistry', capacity: '25'},
-    {program: 'PG', subject: 'Botany', capacity: '25'},
-    {program: 'PG', subject: 'Zoology', capacity: '25'},
-    {program: 'PG', subject: 'History', capacity: '25'},
-    {program: 'PG', subject: 'Geography', capacity: '25'}
-  ])
+  const [ entryData, setEntryData ] = useState([])
+  console.log(entryData)
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/subjects')
+      .then((res) => setEntryData(res.data))
+      .catch(err => console.log(err))
+  })
 
   const entriesNumCount = () => {
     if(entriesNum <= entryData.length) return entriesNum
@@ -69,7 +56,7 @@ function IntakeCapacity() {
                 <thead>
                   <tr>
                     <th scope='col'>Sr No</th>
-                    <th scope='col'>Program Name</th>
+                    <th scope='col'>Program Type</th>
                     <th scope='col'>Subject Name</th>
                     <th scope='col'>Intake Capacity</th>
                   </tr>
@@ -81,7 +68,7 @@ function IntakeCapacity() {
                       return(
                         <tr key={index}>
                           <th scope='col'>{index+1}</th>
-                          <td>{item.program}</td>
+                          <td>{item.type}</td>
                           <td>{item.subject}</td>
                           <td>{item.capacity}</td>
                         </tr>

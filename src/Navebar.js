@@ -442,7 +442,7 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/paid-student')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-user-plus collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -451,7 +451,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                         
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/non-paid-student')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-user-minus collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -471,7 +471,7 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/admission-fees')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-user-xmark collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -480,7 +480,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                         
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/examination-fees')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-chart-pie collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -500,7 +500,7 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/manage-student')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-graduation-cap collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -509,7 +509,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/add-manager')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-user collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -518,7 +518,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/notice')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-file collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -527,7 +527,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/fees-management')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-money-bill-wave collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -536,7 +536,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/open-and-close')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-xmark collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -545,7 +545,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/question-paper')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-circle-question collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -554,7 +554,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/schedule')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-clock collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -563,7 +563,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/intake')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-person-through-window collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -583,7 +583,7 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/sms-dashboard')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-gauge"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -592,7 +592,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/sms-setting')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-gear collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -601,7 +601,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/sms')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-comment-sms collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -610,7 +610,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/sms-report')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-chart-simple collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -630,7 +630,7 @@ function Navebar() {
 
                                 <SidebarMenu.Sub.Collapse>
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/email-sms-setting')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-gear collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -639,7 +639,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/email-sms')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-comment-sms collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -648,7 +648,7 @@ function Navebar() {
                                     </SidebarMenu.Nav>
                                     
                                     <SidebarMenu.Nav>
-                                        <SidebarMenu.Nav.Link>
+                                        <SidebarMenu.Nav.Link onClick={() => navigate('/institute/email-sms-report')}>
                                             <SidebarMenu.Nav.Icon>
                                                 <a><i class="fa-solid fa-chart-simple collapsing-text-icon"></i></a>
                                             </SidebarMenu.Nav.Icon>
@@ -669,48 +669,48 @@ function Navebar() {
                             <Navbar.Collapse collapseOnSelect className='justify-content-between'>
                                 <Nav className='me-auto lastNav'>
                                     <Nav.Item>
-                                        <Nav.Link>
+                                        <Nav.Link onClick={() => navigate('/institute/dashboard')}>
                                             <a>Dashboard</a>
                                         </Nav.Link>
                                     </Nav.Item>
                                     
                                     <NavDropdown title='Admission' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Admitted Student</NavDropdown.Item>
-                                        <NavDropdown.Item>Non Admitted Student</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/admitted-student')}>Admitted Student</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/non-admitted-student')}>Non Admitted Student</NavDropdown.Item>
                                     </NavDropdown>
                                     
                                     <NavDropdown title='Examination' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Paid Student</NavDropdown.Item>
-                                        <NavDropdown.Item>Non Paid Student</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/paid-student')}>Paid Student</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/non-paid-student')}>Non Paid Student</NavDropdown.Item>
                                     </NavDropdown>
                                     
                                     <NavDropdown title='Report' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Admission Fees</NavDropdown.Item>
-                                        <NavDropdown.Item>Examination Fees</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/admission-fees')}>Admission Fees</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/examination-fees')}>Examination Fees</NavDropdown.Item>
                                     </NavDropdown>
                                     
                                     <NavDropdown title='Institution' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Manage Student</NavDropdown.Item>
-                                        <NavDropdown.Item>Add Manager</NavDropdown.Item>
-                                        <NavDropdown.Item>Notice</NavDropdown.Item>
-                                        <NavDropdown.Item>Fees Management</NavDropdown.Item>
-                                        <NavDropdown.Item>Open & Close</NavDropdown.Item>
-                                        <NavDropdown.Item>Question Paper</NavDropdown.Item>
-                                        <NavDropdown.Item>Schedule</NavDropdown.Item>
-                                        <NavDropdown.Item>Intake</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/manage-student')}>Manage Student</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/add-manager')}>Add Manager</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/notice')}>Notice</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/fees-management')}>Fees Management</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/open-and-close')}>Open & Close</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/question-paper')}>Question Paper</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/schedule')}>Schedule</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/intake')}>Intake</NavDropdown.Item>
                                     </NavDropdown>
                                     
                                     <NavDropdown title='Bulk SMS' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
-                                        <NavDropdown.Item>Settings</NavDropdown.Item>
-                                        <NavDropdown.Item>SMS</NavDropdown.Item>
-                                        <NavDropdown.Item>Report</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/sms-dashboard')}>Dashboard</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/sms-setting')}>Settings</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/sms')}>SMS</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/sms-report')}>Report</NavDropdown.Item>
                                     </NavDropdown>
                                     
                                     <NavDropdown title='Email SMS' id='collapsible-nav-dropdown' className='institute-dropdown'>
-                                        <NavDropdown.Item>Settings</NavDropdown.Item>
-                                        <NavDropdown.Item>SMS</NavDropdown.Item>
-                                        <NavDropdown.Item>Report</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/email-sms-setting')}>Settings</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/email-sms')}>SMS</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => navigate('/institute/email-sms-report')}>Report</NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
                             </Navbar.Collapse>

@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react'
+import './AddManager.css'
 import { Col, Container, Row } from 'react-bootstrap'
-import './NonadmittedStudent.css'
 import axios from 'axios'
 
-function NonadmittedStudent() {
-    const [ studentsList2, setStudentsList2 ] = useState([])
-    console.log(studentsList2)
+function AddManager() {
+    const [ managers, setManagers ] = useState([])
+    console.log(managers)
 
     useEffect(() => {
         axios
-            .post('http://localhost:8080/find-student', { field: 'admission_status', value: 'false' })
-            .then((res) => setStudentsList2(res.data))
+            .get('http://localhost:8080/admin/all')
+            .then(res => setManagers(res.data))
             .catch(err => console.log(err))
     })
-    
-    const [ entriesNum, setEntriesNum ] = useState(10)
 
-    const entriesNumCount = () => {
-        if(entriesNum <= studentsList2.length) return entriesNum
-        else return studentsList2.length
+    const managerAccess = (status) => {
+        if(status == false) return 'Not Permitted'
+        else return 'Permitted'
     }
   return (
     <Container fluid>
         <Row>
             <Col sm='12' className='dashboard-header'>
                 <div className='dashboard-top'>
-                    <a><i class="fa-solid fa-user-xmark"></i></a>
-                    <h6>Non-Admitted Student</h6>
+                    <a><i class="fa-solid fa-user"></i></a>
+                    <h6>Add Manager</h6>
                 </div>
 
                 <div className='dashboard-bottom'>
@@ -43,31 +41,25 @@ function NonadmittedStudent() {
                     <table className='table student-table-table'>
                         <thead>
                             <tr>
-                                <th scope='col'>Name</th>
-                                <th scope='col'>Father Name</th>
-                                <th scope='col'>Registration No</th>
-                                <th scope='col'>Course</th>
-                                <th scope='col'>Year/Semester</th>
-                                <th scope='col'>Roll No</th>
-                                <th scope='col'>Mobile</th>
-                                <th scope='col'>Amount</th>
+                                <th scope='col'>Manager Name</th>
+                                <th scope='col'>Manager Type</th>
+                                <th scope='col'>Manager Access</th>
+                                <th scope='col'>Manager Email</th>
+                                <th scope='col'>Manager Mobile</th>
                                 <th scope='col'>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             {
-                                studentsList2 && studentsList2.map((item, index) => {
+                                managers && managers.map((item, index) => {
                                     return(
                                         <tr key={index}>
                                             <td>{item.name}</td>
-                                            <td>{item.father_name}</td>
-                                            <td>{item.registration_no}</td>
-                                            <td>{item.course}</td>
-                                            <td>{item.year}</td>
-                                            <td>{item.roll}</td>
+                                            <td>{item.type}</td>
+                                            <td>{managerAccess(item.access)}</td>
+                                            <td>{item.email}</td>
                                             <td>{item.mobile}</td>
-                                            <td>{item.amount}</td>
                                             <td>Action</td>
                                         </tr>
                                     )
@@ -82,4 +74,4 @@ function NonadmittedStudent() {
   )
 }
 
-export default NonadmittedStudent
+export default AddManager
