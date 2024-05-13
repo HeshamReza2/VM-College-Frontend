@@ -116,7 +116,7 @@ function NonadmittedStudent() {
                             <button className='entry-buttons-text'>Previous</button>
                         </div> */}
 
-                        <ReactPaginate breakLabel='...' nextLabel='next <i class="fa-solid fa-forward-step"></i>' onPageChange={e => setPage(e.selected)} pageRangeDisplayed={3} pageCount={pageCount} previousLabel='<i class="fa-solid fa-backward-step"></i> previous' renderOnZeroPageCount={null} />
+                        {/* <ReactPaginate breakLabel='...' nextLabel='next <i class="fa-solid fa-forward-step"></i>' onPageChange={e => setPage(e.selected)} pageRangeDisplayed={3} pageCount={pageCount} previousLabel='<i class="fa-solid fa-backward-step"></i> previous' renderOnZeroPageCount={null} /> */}
 
                     </Col>
                 </Row>
