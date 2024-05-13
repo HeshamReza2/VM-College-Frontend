@@ -219,7 +219,7 @@ function AdmittedStudents() {
                             )
                         }
                     </Popup>
-                    <button><i class="fa-regular fa-pen-to-square"></i> Update payment</button>
+                    {/* <button><i class="fa-regular fa-pen-to-square"></i> Update payment</button> */}
                 </div>
             </Col>
 
@@ -267,10 +267,10 @@ function AdmittedStudents() {
                                 studentsList && studentsList.map((item, index) => {
                                     return(
                                         <tr key={index}>
-                                            <th scope='row'>{index}</th>
+                                            <th scope='row'>{index+1}</th>
                                             <td>{item.name}</td>
                                             <td>{item.registration_no}</td>
-                                            <td>{item.ccourse}</td>
+                                            <td>{item.course}</td>
                                             <td>{item.year}</td>
                                             <td>{item.roll}</td>
                                             <td>{item.amount}</td>

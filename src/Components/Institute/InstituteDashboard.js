@@ -4,9 +4,15 @@ import { Col, Container, Row } from 'react-bootstrap'
 import CanvasJSReact from '@canvasjs/react-charts'
 import { useNavigate } from 'react-router'
 import Cookies from 'universal-cookie'
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import Chart from 'react-google-charts'
+// import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+// import Chart from 'react-google-charts'
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Pie } from 'react-chartjs-2'
+
+ChartJS.register(
+  ArcElement, Tooltip, Legend
+)
 
 const cookies = new Cookies()
 
@@ -27,51 +33,17 @@ function InstituteDashboard() {
     { name: 'Total Students', students: 1126}
   ]
 
-  const options = {
-    exportEnabled: true,
-    animationEnabled: true,
-    title: {
-      text: 'Student Admission Data'
-    },
-    data: [{
-      type: 'pie',
-      startAngle: 0,
-      toolTipContent: '<b>{label}</b>: {y}',
-      showInLegend: 'true',
-      legendTable: '{label}',
-      indexLabelFontSize: 16,
-      indexLabel: '{label} - {y}',
-      dataPoints: [
-        { y: studentsData[0].students, label: studentsData[0].name },
-        { y: studentsData[1].students - studentsData[0].students, label: 'Non Admitted Students' }
-      ]
-    }]
+  const newStudentsData = {
+    labels: ['Admitted Student', 'Non-Admitted Student'],
+    datasets: [
+      {
+        data: [studentsData[0].students, `${studentsData[1].students - studentsData[0].students}`],
+        backgroundColor: ['#002F5D', '#F4C145']
+      }
+    ]
   }
 
-  const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"]
-
-  const [ admittedStudent, setAdmittedStudent ] = useState(0)
-  const [ nonAdmittedStudent, setNonAdmittedStudent ] = useState(0)
-
-  console.log(admittedStudent, nonAdmittedStudent);
-
-  useEffect(() => {
-    if(studentsData != [] || studentsData !== null || studentsData !== undefined){
-      var admitted = studentsData[0].students
-      var all = studentsData[1].students
-      var nonAdmitted = all - admitted
-
-      setAdmittedStudent(((admitted/all)*100).toFixed(2))
-      setNonAdmittedStudent(((nonAdmitted/all)*100).toFixed(2))
-    }
-  })
-
-  const pieData = [
-    ['Admitted Student', studentsData[0].students],
-    ['Non-Admitted Student', `${studentsData[1].students-studentsData[0].students}`]
-  ]
-
-  const optionns = { title: 'My Daily Activities' }
+  const options = {}
 
   return (
     <Container fluid className='main-dashboard-container'>
@@ -116,20 +88,25 @@ function InstituteDashboard() {
         </Col>
 
         <Col sm='12' className='pieChart'>
-          <Col sm='6'>
-            {/* <CanvasJSReact options={options} /> */}
-            {/* <PieChart width={100} height={100}>
-              <Pie data={pieData} color='#000000' dataKey='value' nameKey='name' cx='50%' cy='50%' outerRadius={120} fill='#888448'>
-                {pieData.map((item, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip content={<customTooltip />} />
-            </PieChart> */}
-
-            {/* <Chart chartType='PieChart' data={pieData} options={optionns} width={'100%'}
-            height={'100%'} /> */}
-          </Col>
+          <Row className='justify-content-center'>
+            <Col sm='6' className='pie-container'>
+              <Col sm='12' className='pie-container-div'>
+                <h4>Admission</h4>
+                <div style={{width: '60%'}}>
+                  <Pie data={newStudentsData} options={options}></Pie>
+                </div>
+              </Col>
+            </Col>
+            
+            <Col sm='6' className='pie-container'>
+              <Col sm='12' className='pie-container-div'>
+                <h4>Admission</h4>
+                <div style={{width: '60%'}}>
+                  <Pie data={newStudentsData} options={options}></Pie>
+                </div>
+              </Col>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>

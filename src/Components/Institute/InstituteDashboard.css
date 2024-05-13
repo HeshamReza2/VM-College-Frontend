@@ -74,6 +74,23 @@
     font-size: 17px;
 }
 
+.pie-container-div{
+    padding: 10px;
+}
+
+.pie-container-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: aliceblue;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pie-container-div h4{
+    font-family: "Merriweather", serif;
+    font-size: 25px;
+}
+
 @media screen and (max-width: 768px){
     .student-number-box-inner{
         height: 110px;
