@@ -9,6 +9,9 @@ function FeesManagement() {
     const [ subjects, setSubjects ] = useState([])
     const [ subjects2, setSubjects2 ] = useState(subjects)
     console.log(subjects2);
+
+    const [ openclose, setOpenclose ] = useState([])
+    console.log(openclose);
     
     const [ entriesNum, setEntriesNum ] = useState(10)
 
@@ -34,6 +37,11 @@ function FeesManagement() {
         axios
             .get('http://localhost:8080/subjects')
             .then(res => setSubjects(res.data))
+            .catch(err => console.log(err))
+
+        axios
+            .get('http://localhost:8080/openclose')
+            .then(res => setOpenclose(res.data))
             .catch(err => console.log(err))
     })
 
@@ -92,14 +100,13 @@ function FeesManagement() {
                     <table className='table student-table-table'>
                         <thead>
                             <tr>
-                                <th scope='col'>Name</th>
-                                <th scope='col'>Father Name</th>
-                                <th scope='col'>Registration No</th>
-                                <th scope='col'>Course</th>
+                                <th scope='col'>Course Name</th>
+                                <th scope='col'>Gender</th>
+                                <th scope='col'>Category</th>
+                                <th scope='col'>Hons Subject</th>
+                                <th scope='col'>Course Fees</th>
+                                <th scope='col'>Fees For</th>
                                 <th scope='col'>Year/Semester</th>
-                                <th scope='col'>Roll No</th>
-                                <th scope='col'>Mobile</th>
-                                <th scope='col'>Amount</th>
                                 <th scope='col'>Action</th>
                             </tr>
                         </thead>
@@ -110,14 +117,13 @@ function FeesManagement() {
                                     if(index>=minAmount && index<maxAmount){
                                         return(
                                             <tr key={index}>
-                                                <td>{item.name}</td>
-                                                <td>{item.father_name}</td>
-                                                <td>{item.registration_no}</td>
-                                                <td>{item.course}</td>
-                                                <td>{item.year}</td>
-                                                <td>{item.roll}</td>
-                                                <td>{item.mobile}</td>
+                                                <td>{item.courseType}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{item.subject}</td>
                                                 <td>{item.amount}</td>
+                                                <td>Admission</td>
+                                                <td>{item.semester}</td>
                                                 <td>Action</td>
                                             </tr>
                                         )
