@@ -89,22 +89,22 @@ function InstituteDashboard() {
 
         <Col sm='12' className='pieChart'>
           <Row className='justify-content-center'>
-            <Col sm='6' className='pie-container'>
-              <Col sm='12' className='pie-container-div'>
-                <h4>Admission</h4>
-                <div style={{width: '60%'}}>
-                  <Pie data={newStudentsData} options={options}></Pie>
+            <Col sm='6'>
+                <div className='pie-container'>
+                  <h4>Admission</h4>
+                  <div style={{width: '100%'}} className='pie-chart'>
+                    <Pie data={newStudentsData} options={options}></Pie>
+                  </div>
                 </div>
-              </Col>
             </Col>
             
-            <Col sm='6' className='pie-container'>
-              <Col sm='12' className='pie-container-div'>
-                <h4>Admission</h4>
-                <div style={{width: '60%'}}>
-                  <Pie data={newStudentsData} options={options}></Pie>
+            <Col sm='6'>
+                <div className='pie-container'>
+                  <h4>Examination</h4>
+                  <div style={{width: '100%'}} className='pie-chart'>
+                    <Pie data={newStudentsData} options={options}></Pie>
+                  </div>
                 </div>
-              </Col>
             </Col>
           </Row>
         </Col>

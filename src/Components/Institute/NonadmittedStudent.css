@@ -1,33 +1,121 @@
-ul.react-paginate {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    list-style-type: none;
-    padding: 0 5rem;
+.item-count{
+  margin-top: 27px;
+}
+
+.item-count p{
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 17px;
+}
+
+.paginator{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.item{
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.disabled-page {
+  color: #808e9b;
+}
+
+.active {
+  border: solid 1px #ffffff;
+  border-radius: 40px;
+  color: #ffffff;
+}
+
+.break-me {
+}
+
+.next {
+  border-left: solid 1px #ffffff;
+  font-size: 4px;
+  height: 40px;
+  right: 0;
+}
+
+.pagination {
+  align-items: center;
+  background-color: rgb(220, 0, 0);
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  width: fit-content;
+}
+
+.pagination-page {
+  font-weight: 700;
+}
+
+.previous {
+  border-right: solid 1px #ffffff;
+  font-size: 4px;
+  height: 40px;
+  left: 0;
+}
+
+.MuiSvgIcon-root{
+  width: 20px !important;
+}
+
+ul{
+  margin: 0 !important;
+}
+
+ul li a{
+  color: #fff;
+  text-decoration: none;
+  height: 40px;
+  width: 40px;
+  padding: 9px 15px;
+}
+
+ul li:hover a{
+  text-decoration: none;
+  color: rgb(220, 0, 0);
+  border-radius: 40px;
+  background-color: white;
+}
+
+ul li:hover{
+  border-radius: 40px;
+  background-color: white;
+}
+
+@media screen and (max-width: 1024px) {
+  .pagination{
+    width: 100%;
   }
-  
-  ul.react-paginate li a {
-    border-radius: 7px;
-    padding: 0.1rem 1rem;
-    border: gray 1px solid;
-    cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+  .student-table{
+    text-align: center;
   }
-  ul.react-paginate li.previous a,
-  ul.react-paginate li.next a,
-  ul.react-paginate li.break a {
-    border-color: transparent;
+}
+
+@media screen and (max-width: 320px) {
+  .pagination{
+    padding: 0;
   }
-  ul.react-paginate li.selected a {
-    background-color: #0366d6;
-    border-color: transparent;
-    color: white;
-    min-width: 32px;
+
+  .paginator{
+    padding: 0;
   }
-  ul.react-paginate li.disabled a {
-    color: grey;
-  }
-  ul.react-paginate li.disable,
-  ul.react-paginate li.disabled a {
-    cursor: default;
-  }
+}

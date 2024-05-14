@@ -74,21 +74,25 @@
     font-size: 17px;
 }
 
-.pie-container-div{
-    padding: 10px;
-}
-
-.pie-container-div{
+.pie-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     background-color: aliceblue;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-.pie-container-div h4{
+.pie-container h4{
     font-family: "Merriweather", serif;
     font-size: 25px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.pie-chart{
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (max-width: 768px){

@@ -3,14 +3,16 @@ import { Col, Container, Row } from 'react-bootstrap'
 import './NonadmittedStudent.css'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
+import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 
 function NonadmittedStudent() {
-    const [ studentsList2, setStudentsList2 ] = useState([])
-
-    const [ pageCount, setPageCount ] = useState(Math.ceil(studentsList2.length/10))
-    console.log(pageCount)
+    const [ studentsList, setStudentsList ] = useState([])
+    const [ studentsList2, setStudentsList2 ] = useState(studentsList)
+    console.log(studentsList2)
     
     const [ entriesNum, setEntriesNum ] = useState(10)
+
+    const [ pageCount, setPageCount ] = useState(1)
 
     const entriesNumCount = () => {
         if(entriesNum <= studentsList2.length) return entriesNum
@@ -20,23 +22,37 @@ function NonadmittedStudent() {
     const [ maxAmount, setMaxAmount ] = useState(entriesNum)
     const [ minAmount, setMinAmount ] = useState(0)
 
-    const [ page, setPage ] = useState(1)
+    const [ page, setPage ] = useState(0)
 
     useEffect(() => {
-        setMaxAmount(page*entriesNum)
-        setMinAmount(0 + entriesNum*(page-1))
+        setMaxAmount((page+1)*entriesNum)
+        setMinAmount(0 + entriesNum*(page))
 
-        setPageCount(Math.ceil(studentsList2.length/10))
+        if(Math.ceil(studentsList2.length/entriesNum) !== 0) setPageCount(Math.ceil(studentsList2.length/entriesNum))
+        else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
 
         axios
             .post('http://localhost:8080/find-student', { field: 'admission_status', value: 'false' })
-            .then((res) => setStudentsList2(res.data))
+            .then((res) => setStudentsList(res.data))
             .catch(err => console.log(err))
     })
+
+    const entryMaxLength = () => {
+        if(maxAmount <= studentsList2.length) return `${maxAmount}`
+        else return `${studentsList2.length}`
+    }
 
     const handleChange = (e, number) => {
         setPage(number)
     }
+
+    const [ searchItem, setSearchItem ] = useState('')
+    console.log(searchItem);
+
+    useEffect(() => {
+        if(searchItem == '') setStudentsList2(studentsList)
+        if(searchItem !== '') setStudentsList2([])
+    })
   return (
     <Container fluid>
         <Row>
@@ -52,6 +68,26 @@ function NonadmittedStudent() {
                     <p>Email to: <a href='mailto:developer@gnextit.com'>developer@gnextit.com</a> / <a href='mailto:info@gnextit.com'>info@gnextit.com</a> / <a href='mailto:conplaint@gnextit.com'>conplaint@gnextit.com</a></p>
 
                     <p>Talk to: 8017010592 / 9734103591</p>
+                </div>
+            </Col>
+
+            <Col sm='12' className='dashboard-select-entry'>
+                <div className='selector'>
+                    <div className='entries-box'>
+                        <p>Show</p>
+                        <select id='entries' name='entries' onChange={(e) => {setEntriesNum(e.target.value); setPage(0)}}>
+                            <option value='10'>10</option>
+                            <option value='25'>25</option>
+                            <option value='50'>50</option>
+                            <option value='100'>100</option>
+                        </select>
+                        <p>entries</p>
+                    </div>
+
+                    <div className='searching'>
+                        <input type='text' placeholder='Search...' onChange={e => setSearchItem(e.target.value)} />
+                        <button>Search</button>
+                    </div>
                 </div>
             </Col>
 
@@ -98,25 +134,13 @@ function NonadmittedStudent() {
             </Col>
 
             <Col sm='12' className='student-table'>
-                <Row>
-                    <Col sm='6'>
-                        <p>Showing 0 to 0 of 0 items</p>
+                <Row style={{margin: 0}} className='paginator-row'>
+                    <Col sm='6' className='item-count'>
+                        <p>Showing {minAmount+1} to {entryMaxLength()} of {studentsList2.length} items</p>
                     </Col>
 
-                    <Col sm='6'>
-                        {/* <div className='entry-buttons'>
-                            <button className='entry-buttons-text'>Previous</button>
-                            <button className='entry-buttons-numbers'>1</button>
-                            <button className='entry-buttons-numbers'>2</button>
-                            <button className='entry-buttons-numbers'>3</button>
-                            <button className='entry-buttons-numbers'>4</button>
-                            <button className='entry-buttons-numbers'>5</button>
-                            <button className='entry-buttons-numbers'>6</button>
-                            <button className='entry-buttons-numbers'>7</button>
-                            <button className='entry-buttons-text'>Previous</button>
-                        </div> */}
-
-                        {/* <ReactPaginate breakLabel='...' nextLabel='next <i class="fa-solid fa-forward-step"></i>' onPageChange={e => setPage(e.selected)} pageRangeDisplayed={3} pageCount={pageCount} previousLabel='<i class="fa-solid fa-backward-step"></i> previous' renderOnZeroPageCount={null} /> */}
+                    <Col sm='6' className='paginator'>
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
 
                     </Col>
                 </Row>

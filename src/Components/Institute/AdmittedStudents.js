@@ -3,21 +3,31 @@ import { Col, Container, Row } from 'react-bootstrap'
 import './AdmittedStudents.css'
 import Popup from 'reactjs-popup'
 import axios from 'axios'
+import ReactPaginate from 'react-paginate'
+import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 
 function AdmittedStudents() {
+    const [ studentsList, setStudentsList ] = useState([])
+    const [ studentsList2, setStudentsList2 ] = useState([])
+    console.log(studentsList2)
     const [ entriesNum, setEntriesNum ] = useState(10)
+
+    const [ pageCount, setPageCount ] = useState(1)
 
     const [ subjects, setSubjects ] = useState([])
 
     useEffect(() => {
+        setMaxAmount((page+1)*entriesNum)
+        setMinAmount(0 + entriesNum*(page))
+
+        if(Math.ceil(studentsList2.length/entriesNum) !== 0) setPageCount(Math.ceil(studentsList2.length/entriesNum))
+        else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
+
         axios
             .get('http://localhost:8080/subjects')
             .then((res) => setSubjects(res.data))
             .catch(err => console.log(err))
     })
-    
-    const [ studentsList, setStudentsList ] = useState([])
-    console.log(studentsList)
 
     useEffect(() => {
         axios
@@ -27,9 +37,14 @@ function AdmittedStudents() {
     })
 
     const entriesNumCount = () => {
-        if(entriesNum <= studentsList.length) return entriesNum
-        else return studentsList.length
+        if(entriesNum <= studentsList2.length) return entriesNum
+        else return studentsList2.length
     }
+
+    const [ maxAmount, setMaxAmount ] = useState(entriesNum)
+    const [ minAmount, setMinAmount ] = useState(0)
+
+    const [ page, setPage ] = useState(0)
 
     const [ matches, setMatches ] = useState(window.matchMedia('(max-width: 425px)').matches)
 
@@ -87,6 +102,11 @@ function AdmittedStudents() {
                 close()
             })
             .catch(err => console.log(err))
+    }
+
+    const entryMaxLength = () => {
+        if(maxAmount <= studentsList2.length) return `${maxAmount}`
+        else return `${studentsList2.length}`
     }
 
   return (
@@ -264,7 +284,7 @@ function AdmittedStudents() {
 
                         <tbody>
                             {
-                                studentsList && studentsList.map((item, index) => {
+                                studentsList2 && studentsList2.map((item, index) => {
                                     return(
                                         <tr key={index}>
                                             <th scope='row'>{index+1}</th>
@@ -285,6 +305,19 @@ function AdmittedStudents() {
                         </tbody>
                     </table>
                 </div>
+            </Col>
+
+            <Col sm='12' className='student-table'>
+                <Row style={{margin: 0}} className='paginator-row'>
+                    <Col sm='6' className='item-count'>
+                        <p>Showing {minAmount+1} to {entryMaxLength()} of {studentsList2.length} items</p>
+                    </Col>
+
+                    <Col sm='6' className='paginator'>
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+
+                    </Col>
+                </Row>
             </Col>
         </Row>
     </Container>
