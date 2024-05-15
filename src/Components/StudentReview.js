@@ -58,17 +58,17 @@ function StudentReview() {
     }
 
     const [isOpen, setIsOpen] = useState(false);
-    const [clientCode, setClientCode] = useState("NITE5");
-    const [transUserName, setTransUserName] = useState("Ish988@sp");
-    const [transUserPassword, setTransUserPassword] = useState("wF2F0io7gdNj");
-    const [authkey, setAuthkey] = useState("vuQy2eFx4q095E03");
-    const [authiv, setAuthiv] = useState("qz7zPW07upqREhuo");
-    const [payerName, setPayerName] = useState("Hesham Reza");
-    const [payerEmail, setPayerEmail] = useState("heshamreza2@gmail.com");
-    const [payerMobile, setPayerMobile] = useState("6295087117");
-    const [clientTxnId, setclientTxnId] = useState("123456");
+    const [clientCode, setClientCode] = useState("VARDH");
+    const [transUserName, setTransUserName] = useState("bhabesh.jha_4410");
+    const [transUserPassword, setTransUserPassword] = useState("VARDH_SP4410");
+    const [authkey, setAuthkey] = useState("NmWDlqhSSMc3Zfyg");
+    const [authiv, setAuthiv] = useState("J8D1Yz6FyCpOOl78");
+    const [payerName, setPayerName] = useState('');
+    const [payerEmail, setPayerEmail] = useState('');
+    const [payerMobile, setPayerMobile] = useState('');
+    const [clientTxnId, setclientTxnId] = useState('');
     const [amount, setAmount] = useState(90);
-    const [payerAddress, setPayerAddress] = useState("Kolkata");
+    const [payerAddress, setPayerAddress] = useState('');
     const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
     const [data, setData] = useState(null)
     const [udf1, setudf1] = useState(null);
@@ -97,12 +97,14 @@ function StudentReview() {
     const [amountType, setamountType] = useState(null);
     const [selectedOption, setSelectedOption] = useState('')
 
+    console.log(payerName, payerEmail, payerMobile, payerAddress);
+
     useEffect(() => {
         if(data2 != [] || data2 !== null || data2 !== undefined){
             setPayerName(data2.name)
             setPayerEmail(data2.email)
             setPayerMobile(data2.mobile)
-            setPayerAddress(`${data2.street_name}, ${data2.city}, ${data2.state}, ${data2.country}`)
+            setPayerAddress(data2.street_name + ', ' + data2.street_name_2 + ', ' + data2.city + ', ' + data2.state + ', ' + data2.country)
         }
     })
 
@@ -112,6 +114,7 @@ function StudentReview() {
         e.preventDefault()
         const btn = document.getElementById('renderSabPaisa');
         btn.click();
+        window.location.href = 'https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit'
     }
 
   return (
@@ -412,6 +415,8 @@ function StudentReview() {
                             </div>
                         </Col>
                     </Row>
+
+                    <div id='renderSabPaisa'></div>
                     
                     <SabpaisaPaymentGateway clientCode={clientCode} transUserName={transUserName} transUserPassword={transUserPassword} authkey={authkey} authiv={authiv} payerName={payerName} payerEmail={payerEmail} payerMobile={payerMobile} clientTxnId={clientTxnId} amount={amount} payerAddress={payerAddress} callbackUrl={callbackUrl} isOpen={isOpen} />
                 </form>

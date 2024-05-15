@@ -43,6 +43,7 @@ function Navebar() {
         else if(pathname == 'http://localhost:3000/merit-list'){
             setHomeNav('')
             setCapacityNav('')
+            setCapacityNav('')
             setMeritNav('nav-item-active')
             setResultNav('')
             setPaymentNav('')
@@ -63,14 +64,21 @@ function Navebar() {
             setResultNav('')
             setPaymentNav('nav-item-active')
         }
-    })
+    }, [pathname])
 
     const [ including, setIncluding ] = useState(false)
+    const [ including2, setIncluding2 ] = useState(false)
 
     useEffect(() => {
         if(pathname?.includes('/institute/')) setIncluding(true)
+        //else if(pathname?.includes('/pay-receipt')) setIncluding(true)
         else setIncluding(false)
-    })
+    }, [pathname])
+
+    useEffect(() => {
+        if(pathname?.includes('/pay-receipt')) setIncluding2(true)
+        else setIncluding2(false)
+    }, [pathname])
 
     const [ showShow, setShowShow ] = useState(false)
 
@@ -78,6 +86,8 @@ function Navebar() {
 
     const [ topNav, setTopNav ] = useState('block')
     const [ botNav, setBotNav ] = useState('none')
+    const [ footNav, setFootNav ] = useState('block')
+    console.log(including2, footNav);
     useEffect(() => {
         if(including){
             setTopNav('none')
@@ -87,7 +97,27 @@ function Navebar() {
             setTopNav('block')
             setBotNav('none')
         }
-    })
+    }, [including])
+    
+    useEffect(() => {
+        if(including2){
+            setTopNav('none')
+            setBotNav('none')
+            setFootNav('none')
+        }
+        else if(!including){
+            if(including){
+                setTopNav('none')
+                setBotNav('block')
+            }
+            else if(!including){
+                setTopNav('block')
+                setBotNav('none')
+            }
+            
+            setFootNav('block')
+        }
+    }, [including, including2])
 
     const [ passwordType, setPasswordType ] = useState('password')
     const [ eye, setEye ] = useState('fa-eye')
@@ -192,14 +222,14 @@ function Navebar() {
 
     useEffect(() => {
         axios
-            .post('http://localhost:8080/admin/search', { username: loginData.username })
+            .post(`https://vm-college-backend-1.onrender.com/admin/search`, { username: loginData.username })
             .then(({ data }) => {
                 if(data == null || data == undefined || data == []){
                     setValid(false)
                 }
                 else{
                     axios
-                        .post('http://localhost:8080/admin/login', loginData)
+                        .post(`https://vm-college-backend-1.onrender.com/admin/login`, loginData)
                         .then(({ data }) => {
                             if(data == 'Invalid') setValid(false)
                             else if(data == 'Valid') setValid(true)
@@ -207,7 +237,7 @@ function Navebar() {
                 }
             })
             .catch(err => console.log(err))
-    })
+    }, [loginData])
 
   return (
     <> 
@@ -368,7 +398,7 @@ function Navebar() {
             <Outlet />
         </Container>
 
-        <Footer/>
+        <Footer style={{ display: footNav }} />
 
         <Container fluid style={{display: botNav}}>
             <Row>

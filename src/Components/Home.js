@@ -247,6 +247,7 @@ function Home() {
           <Col sm='3'>
             <div className='notice-box instruction-box'>
               <h6>Instruction</h6>
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Nx4bvwU0DqE" title="How to Start Leetcode in 2024 (as a beginner)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
           </Col>
         </Row>

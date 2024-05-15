@@ -105,6 +105,31 @@
     margin-bottom: 17px;
 }
 
+.btn-action{
+    padding: 0;
+}
+
+.btn-action ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.btn-action ul li{
+    padding: 0;
+    margin: 0;
+}
+
+.btn-action ul li a{
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+}
+
+.btn-action ul li:hover{
+    color: blue;
+}
+
 @media screen and (max-width: 425px) {
     .buttoned{
         display: flex;

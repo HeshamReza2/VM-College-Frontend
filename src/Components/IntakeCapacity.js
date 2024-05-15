@@ -11,7 +11,7 @@ function IntakeCapacity() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/subjects')
+      .get(`https://vm-college-backend-1.onrender.com/subjects`)
       .then((res) => setEntryData(res.data))
       .catch(err => console.log(err))
   })

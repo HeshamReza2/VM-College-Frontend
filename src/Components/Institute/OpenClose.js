@@ -32,7 +32,7 @@ function OpenClose() {
         else if(Math.ceil(openclose2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get('http://localhost:8080/openclose')
+            .get(`https://vm-college-backend-1.onrender.com/openclose`)
             .then(res => setOpenclose(res.data))
             .catch(err => console.log(err))
     })
@@ -79,17 +79,24 @@ function OpenClose() {
         else if(status ==  true) return 'Unpublish'
     }
 
+    const updateAllSubject = (type, courseType, semester, status) => {
+        axios
+            .patch(`https://vm-college-backend-1.onrender.com/update-all-subjects`, { type: type, courseType: courseType, semester: semester, status: !status })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
     const updateStatus = (item) => {
         if(item.status == false){
             axios
-                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'true'})
-                .then(res => console.log(res))
+                .patch(`https://vm-college-backend-1.onrender.com/update-openclose/${item._id}`, { status: 'true'})
+                .then(() => updateAllSubject(item.type, item.programme, item.semester, item.status))
                 .catch(err => console.log(err))
         }
         else if(item.status == true){
             axios
-                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'false'})
-                .then(res => console.log(res))
+                .patch(`https://vm-college-backend-1.onrender.com/update-openclose/${item._id}`, { status: 'false'})
+                .then(() => updateAllSubject(item.type, item.programme, item.semester, item.status))
                 .catch(err => console.log(err))
         }
     }

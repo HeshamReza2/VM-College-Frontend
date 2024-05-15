@@ -32,10 +32,10 @@ function AddManager() {
         else if(Math.ceil(managers2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get('http://localhost:8080/admin/all')
+            .get(`https://vm-college-backend-1.onrender.com/admin/all`)
             .then(res => setManagers(res.data))
             .catch(err => console.log(err))
-    })
+    }, [page, entriesNum, managers, managers2])
 
     const [ searchItem, setSearchItem ] = useState('')
     console.log(searchItem);
@@ -43,7 +43,7 @@ function AddManager() {
     useEffect(() => {
         if(searchItem == '') setManagers2(managers)
         if(searchItem !== '') setManagers2([])
-    })
+    }, [searchItem, managers])
 
     const entryMaxLength = () => {
         if(maxAmount <= managers2.length) return `${maxAmount}`

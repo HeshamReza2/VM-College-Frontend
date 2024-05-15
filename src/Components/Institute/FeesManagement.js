@@ -35,12 +35,12 @@ function FeesManagement() {
         else if(Math.ceil(subjects2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get('http://localhost:8080/subjects')
+            .get(`https://vm-college-backend-1.onrender.com/subjects`)
             .then(res => setSubjects(res.data))
             .catch(err => console.log(err))
 
         axios
-            .get('http://localhost:8080/openclose')
+            .get(`https://vm-college-backend-1.onrender.com/openclose`)
             .then(res => setOpenclose(res.data))
             .catch(err => console.log(err))
     })

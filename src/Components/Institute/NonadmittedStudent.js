@@ -32,10 +32,10 @@ function NonadmittedStudent() {
         else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .post('http://localhost:8080/find-student', { field: 'admission_status', value: 'false' })
+            .post(`https://vm-college-backend-1.onrender.com/find-student`, { field: 'admission_status', value: 'false' })
             .then((res) => setStudentsList(res.data))
             .catch(err => console.log(err))
-    })
+    }, [page, entriesNum, studentsList, studentsList2])
 
     const entryMaxLength = () => {
         if(maxAmount <= studentsList2.length) return `${maxAmount}`
@@ -52,7 +52,7 @@ function NonadmittedStudent() {
     useEffect(() => {
         if(searchItem == '') setStudentsList2(studentsList)
         if(searchItem !== '') setStudentsList2([])
-    })
+    }, [searchItem, studentsList])
   return (
     <Container fluid>
         <Row>

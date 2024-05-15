@@ -32,10 +32,10 @@ function ManageStudent() {
             else if(Math.ceil(studentsList3.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get('http://localhost:8080/students')
+            .get(`https://vm-college-backend-1.onrender.com/students`)
             .then(res => setStudentsList(res.data))
             .catch(err => console.log(err))
-    })
+    }, [page, entriesNum, studentsList, studentsList3])
 
     const admissionStatus = (status) => {
         if(status == false) return 'Payment Not Done'
@@ -53,7 +53,7 @@ function ManageStudent() {
     useEffect(() => {
         if(searchItem == '') setStudentsList3(studentsList)
         if(searchItem !== '') setStudentsList3([])
-    })
+    }, [searchItem, studentsList])
   return (
     <Container fluid>
         <Row>

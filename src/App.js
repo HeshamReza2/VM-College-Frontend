@@ -35,6 +35,7 @@ import ReportSms from './Components/Institute/ReportSms';
 import SettingEmail from './Components/Institute/SettingEmail';
 import EmailSms from './Components/Institute/EmailSms';
 import ReportEmail from './Components/Institute/ReportEmail';
+import PayReceipt from './Components/Institute/PayReceipt';
 
 function App() {
   return (
@@ -96,6 +97,7 @@ function App() {
             {/* payment route */}
             <Route path='/payment' element={<SabpaisaPage />} />
             <Route path='/response' element={<SabpaisaStatus />} />
+            <Route path='/pay-receipt' element={<PayReceipt />} />
 
           </Route>
         </Routes>

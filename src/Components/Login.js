@@ -35,33 +35,54 @@ function Login() {
     }
 
     const [ subjects, setSubjects ] = useState([])
+    const [ subjects2, setSubjects2 ] = useState([])
+    console.log(subjects2);
 
     useEffect(() => {
         axios
-            .get('http://localhost:8080/subjects')
+            .get(`https://vm-college-backend-1.onrender.com/subjects`)
             .then(res => setSubjects(res.data))
             .catch(err => console.log(err))
     }, [])
 
-    const [ res, setRes ] = useState([])
+    function getUniqueListBy(arr, key) {
+        let newArr = []
+        let uniqueObj = {}
+        for(let i in arr){
+            var sub = arr[i]['subject']
+            uniqueObj[sub] = arr[i]
+        }
+        for(let i in uniqueObj) newArr.push(uniqueObj[i])
+        
+        setSubjects2(newArr)
+    }
+
+    useEffect(() => {
+        if(subjects != [] || subjects !== undefined || subjects !== null){
+            getUniqueListBy(subjects, 'subject')
+        }
+    }, [subjects])
+
+    const [ result, setResult ] = useState([])
+    console.log(result);
 
     useEffect(() => {
         axios
-            .post('http://localhost:8080/single-student', data)
-            .then(res => setRes(res.data[0]))
+            .post(`https://vm-college-backend-1.onrender.com/single-student`, data)
+            .then(res => setResult(res.data[0]))
             .catch(err => console.log(err))
-    })
+    }, [data])
 
     const checkStudent = () => {
         if(data.registration_no == '' || data.course == ''){
             alert('Please Enter Your Details Properly')
         }
         else{
-            if(res == [] || res == undefined){
+            if(result == [] || result == undefined){
                 alert('Please Enter Your Details Properly')
             }
-            else if(res != [] || res !== undefined){
-                navigate('/student-details', { state: res })
+            else if(result != [] || result !== undefined){
+                navigate('/student-details', { state: result })
             }
         }
     }
@@ -80,7 +101,7 @@ function Login() {
                         <div className='form-group'>
                             <select class="form-select input-select" aria-label=".form-select-lg example" autoFocus name='course' onChange={updateData} >
                                 <option selected hidden value=''>Select Your Course</option>
-                                {subjects && subjects.map((item, index) => {
+                                {subjects2 && subjects2.map((item, index) => {
                                     return(
                                         <option key={index} value={item.subject}>{item.subject}</option>
                                     )

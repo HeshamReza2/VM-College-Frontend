@@ -5,13 +5,18 @@ import Popup from 'reactjs-popup'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
+import { useNavigate } from 'react-router'
 
 function AdmittedStudents() {
+    const navigate = useNavigate()
     const [ studentsList, setStudentsList ] = useState([])
-    const [ studentsList2, setStudentsList2 ] = useState([])
+    const [ studentsList2, setStudentsList2 ] = useState(studentsList)
+    console.log(studentsList)
     console.log(studentsList2)
     const [ entriesNum, setEntriesNum ] = useState(10)
 
+
+    const [ page, setPage ] = useState(0)
     const [ pageCount, setPageCount ] = useState(1)
 
     const [ subjects, setSubjects ] = useState([])
@@ -24,17 +29,17 @@ function AdmittedStudents() {
         else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get('http://localhost:8080/subjects')
+            .get(`https://vm-college-backend-1.onrender.com/subjects`)
             .then((res) => setSubjects(res.data))
             .catch(err => console.log(err))
-    })
+    }, [page, entriesNum, studentsList2, studentsList])
 
     useEffect(() => {
         axios
-            .post('http://localhost:8080/find-student', { field: 'admission_status', value: 'true' })
+            .post(`https://vm-college-backend-1.onrender.com/find-student`, { field: 'admission_status', value: 'true' })
             .then((res) => setStudentsList(res.data))
             .catch(err => console.log(err))
-    })
+    }, [])
 
     const entriesNumCount = () => {
         if(entriesNum <= studentsList2.length) return entriesNum
@@ -43,8 +48,6 @@ function AdmittedStudents() {
 
     const [ maxAmount, setMaxAmount ] = useState(entriesNum)
     const [ minAmount, setMinAmount ] = useState(0)
-
-    const [ page, setPage ] = useState(0)
 
     const [ matches, setMatches ] = useState(window.matchMedia('(max-width: 425px)').matches)
 
@@ -84,19 +87,19 @@ function AdmittedStudents() {
     useEffect(() => {
         if(studentData.name !== '' & studentData.mobile !== ''){
             axios
-                .post('http://localhost:8080/check-student', { name: studentData.name, mobile: studentData.mobile })
+                .post(`https://vm-college-backend-1.onrender.com/check-student`, { name: studentData.name, mobile: studentData.mobile })
                 .then(res => {
                     if(res) setExists(true)
                     else setExists(false)
                 })
                 .catch(err => console.log(err))
         }
-    })
+    }, [studentData])
 
     const addStudent = (e, close) => {
         e.preventDefault()
         axios
-            .post('http://localhost:8080/add-student', studentData)
+            .post(`https://vm-college-backend-1.onrender.com/add-student`, studentData)
             .then(() => {
                 alert('Student Added')
                 close()
@@ -108,6 +111,14 @@ function AdmittedStudents() {
         if(maxAmount <= studentsList2.length) return `${maxAmount}`
         else return `${studentsList2.length}`
     }
+
+    const [ searchItem, setSearchItem ] = useState('')
+    console.log(searchItem);
+
+    useEffect(() => {
+        if(searchItem == '') setStudentsList2(studentsList)
+        if(searchItem !== '') setStudentsList2([])
+    }, [searchItem, studentsList])
 
   return (
     <Container fluid>
@@ -124,6 +135,26 @@ function AdmittedStudents() {
                     <p>Email to: <a href='mailto:developer@gnextit.com'>developer@gnextit.com</a> / <a href='mailto:info@gnextit.com'>info@gnextit.com</a> / <a href='mailto:conplaint@gnextit.com'>conplaint@gnextit.com</a></p>
 
                     <p>Talk to: 8017010592 / 9734103591</p>
+                </div>
+            </Col>
+
+            <Col sm='12' className='dashboard-select-entry'>
+                <div className='selector'>
+                    <div className='entries-box'>
+                        <p>Show</p>
+                        <select id='entries' name='entries' onChange={(e) => {setEntriesNum(e.target.value); setPage(0)}}>
+                            <option value='10'>10</option>
+                            <option value='25'>25</option>
+                            <option value='50'>50</option>
+                            <option value='100'>100</option>
+                        </select>
+                        <p>entries</p>
+                    </div>
+
+                    <div className='searching'>
+                        <input type='text' placeholder='Search...' onChange={e => setSearchItem(e.target.value)} />
+                        <button>Search</button>
+                    </div>
                 </div>
             </Col>
 
@@ -222,7 +253,7 @@ function AdmittedStudents() {
                                                     <button className='btn' onClick={e => {
                                                         e.preventDefault()
                                                         axios
-                                                            .post('http://localhost:8080/add-student', studentData)
+                                                            .post(`https://vm-college-backend-1.onrender.com/add-student`, studentData)
                                                             .then(() => {
                                                                 alert('Student Added')
                                                                 close()
@@ -297,7 +328,13 @@ function AdmittedStudents() {
                                             <td>{item.mobile}</td>
                                             <td>{item.transaction_id}</td>
                                             <td>{item.date}</td>
-                                            <td>Action</td>
+                                            <td className='btn-action'>
+                                                <ul>
+                                                    <li><a onClick={e => {e.preventDefault(); navigate('/pay-receipt', { state: item });}}>Pay Receipt <i class="fa-solid fa-receipt"></i></a></li>
+                                                    <li><a>Admission Receipt <i class="fa-solid fa-file-invoice"></i></a></li>
+                                                    <li><a>Profile <i class="fa-solid fa-pen-to-square"></i></a></li>
+                                                </ul>
+                                            </td>
                                         </tr>
                                     )
                                 })
