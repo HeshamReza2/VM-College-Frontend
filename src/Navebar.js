@@ -87,6 +87,7 @@ function Navebar() {
     const [ topNav, setTopNav ] = useState('block')
     const [ botNav, setBotNav ] = useState('none')
     const [ footNav, setFootNav ] = useState('block')
+    const [ receiptBox, setReceiptBox ] = useState('none')
     console.log(including2, footNav);
     useEffect(() => {
         if(including){
@@ -104,6 +105,7 @@ function Navebar() {
             setTopNav('none')
             setBotNav('none')
             setFootNav('none')
+            setReceiptBox('block')
         }
         else if(!including){
             if(including){
@@ -116,6 +118,7 @@ function Navebar() {
             }
             
             setFootNav('block')
+            setReceiptBox('none')
         }
     }, [including, including2])
 
@@ -398,7 +401,13 @@ function Navebar() {
             <Outlet />
         </Container>
 
-        <Footer style={{ display: footNav }} />
+        <Container fluid style={{ display: footNav }}>
+            <Footer />
+        </Container>
+
+        <Container fluid style={{ display: receiptBox }}>
+            <Outlet />
+        </Container>
 
         <Container fluid style={{display: botNav}}>
             <Row>
