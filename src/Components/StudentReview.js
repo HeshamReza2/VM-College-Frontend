@@ -1,14 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router'
-import countryList from 'react-select-country-list'
 import SabpaisaPaymentGateway from './SabpaisaPaymentGateway'
+import { v4 as uuidv4 } from 'uuid';
 
-function StudentReview() {
+function StudentReview(props) {
     const navigate = useNavigate()
     const location = useLocation()
 
-    const [ data2, setData2 ] = useState([])
+    useEffect(() => {
+        if(window.location.href?.includes('clientCode')) navigate('/response', { state: { pathname: window.location.href}})
+    })
+
+    const [ data2, setData2 ] = useState(location.state || [])
     console.log(data2)
     // const [ dob, setDob ] = useState(new Date.now())
     // useEffect(() => {
@@ -20,55 +24,30 @@ function StudentReview() {
     // })
     // console.log(dob);
 
-    useEffect(() => {
-        if(location.state == null) navigate('/login')
-        else{
-            setData2(location.state)
-        }
-    }, [])
-    console.log(location.state)
-    const options = useMemo(() => countryList().getData(), [])
-
-    const updateNumber = e => {
-        if(e.target.value.length > 10){
-            e.target.value = e.target.value.slice(0, 10)
-        }
-    }
-
-    const religionsList = [ 'Brahmoism', 'Buddhism', 'Christianity', 'Hinduism', 'Islam', 'Jainism', 'Sikhism', 'Zoroastrianism', 'Non Believer', 'Not to be Disclosed', 'Others']
-
-    const boardsList = [
-        'BOARD OF INTERMEDIATE EDUCATION (ANDHRA PRADESH)', 'BOARD OF SECONDARY EDUCATION (ANDHRA PRADESH)', 'A.P. OPEN SCHOOL SOCIETY Govt. of Andhra Pradesh', 'ASSAM HIGHER SECONDARY EDUCATION COUNCIL', 'BOARD OF SECONDARY EDUCATION, ASSAM', 'ASSAM SANSKRIT BOARD', 'STATE MADRASSA EDUCATION BOARD, ASSAM', 'ALIGARH MUSLIM UNIVERSITY BOARD OF SECONDARY & SR. SECONDARY EDUCATION', 'BIHAR SCHOOL EXAMINATION BOARD', 'BIHAR BOARD OF OPEN SCHOOLING & EXAMINATION', 'BIHAR STATE MADRASA EDUCATION BOARD', 'BIHAR SANSKRIT SHIKSHA BOARD', 'BANASTHALI VIDYAPITH', 'CENTRAL BOARD OF SECONDARY EDUCATION', 'CHHATISGARH BOARD OF SECONDARY EDUCATION', 'CHHATISGARH STATE OPEN SCHOOL', 'CHHATTISGARH SANSKRIT BOARD, RAIPUR', 'CHHATTISGARH MADRASA BOARD', 'COUNCIL FOR THE INDIAN SCHOOL CERTIFICATE EXAMINATIONS', 'DELHI BOARD OF SENIOR SECONDARY EDUCATION', 'DAYALBAGH EDUCATIONAL INSTITUTE', 'DELHI STATE OPEN SCHOOL', 'ICSE BOARD ( INDIAN COUNCIL OF SECONDARY EDUCATION / INDIAN SCHOOL CERTIFICATE EXAMINATION)', 'GOA BOARD OF SECONDARY AND HIGHER SECONDARY EDUCATION', 'GUJARAT SECONDARY AND HIGHER', 'BOARD OF SCHOOL EDUCATION HARYANA', 'Gurukula Kangri Vishwavidyalaya', 'H. P. BOARD OF SCHOOL EDUCATION', 'The J & K STATE BOARD OF SCHOOL EDUCATION', 'JAMMU AND KASHMIR STATE OPEN SCHOOL', 'JHARKHAND ACADEMIC COUNCIL,RANCHI', 'GOVT. OF KARNATAKA DEPT. OF PRE-UNIVERSITY EDUCATION', 'KARNATAKA SECONDARY EDUCATION, EXAMINATION BOARD', 'KERALA BOARD OF PUBLIC EXAMINATION , KERALA', 'KERALA BOARD OF HIGHER SECONDARY EDUCATION', 'BOARD OF VOCATIONAL HIGHER', 'MAHARASHTRA STATE BOARD OF SECONDARY AND HIGHER SECONDARY EDUCATION', 'BOARD OF SECONDARY EDUCATION, MADHYA PRADESH', 'M.P. STATE OPEN SCHOOL EDUCATION BOARD', 'MAHARISHI PATANJALI SANSKRIT SANSTHAN', 'BOARD OF SECONDARY EDUCATION, MANIPUR', 'COUNCIL OF HIGHER SECONDARY EDUCATION, MANIPUR', 'MEGHALAYA BOARD OF SCHOOL EDUCATION', 'MIZORAM BOARD OF SCHOOL EDUCATION', 'NAGALAND BOARD OF SCHOOL EDUCATION', 'NATIONAL INSTITUTE OF RURAL OPEN SCHOOLING', 'NATIONAL INSTITUTE OF OPEN SCHOOLING', 'NATIONAL INSTITUTE OF OPEN SCHOOLING', 'COUNCIL OF HIGHER SECONDARY EDUCATION, ODISHA', 'BOARD OF SECONDARY EDUCATION, ODISHA', 'PUNJAB SCHOOL EDUCATION BOARD', 'BOARD OF SECONDARY EDUCATION RAJASTHAN', 'RAJASTHAN STATE OPEN SCHOOL, JAIPUR', 'CENTRAL SANSKRIT UNIVERSITY', 'STATE BOARD OF SCHOOL EXAMINATIONS(SEC.) & BOARD OF HIGHER SECONDARY EXAMINATIONS, TAMIL NADU', 'TELANGANA STATE BOARD OF INTERMEDIATE EDUCATION', 'BOARD OF SECONDARY EDUCATION', 'TELANGANA OPEN SCHOOL SOCIETY Government of Telangana', 'RAJIV GANDHI UNIVERSITY OF KNOWLEDGE TECHNOLOGIES ( RGUKT)', 'TRIPURA BOARD OF SECONDARY EDUCATION', 'U.P. BOARD OF HIGH SCHOOL & INTERMEDIATE EDUCATION', 'U.P. Board of SEC. SANSKRIT EDUCATION', 'BOARD OF SCHOOL EDUCATION UTTARAKHAND', 'UTTRAKHAND SANSKRIT', 'UTTRAKHAND MADRASA EDUCATION BOARD', 'WEST BENGAL BOARD OF SECONDARY EDUCATION', 'WEST BENGAL COUNCIL OF HIGHER SECONDARY EDUCATION', 'WEST BENGAL BOARD OF MADRASAH EDUCATION', 'THE WEST BENGAL COUNCIL OF RABINDRA OPEN SCHOOLING', 'COUNCIL OF UNIVERSAL BUDDHIST UNIVERSITY, NAGPUR', 'ODISHA STATE BOARD OF MADRASA EDUCATION', 'WEST BENGAL STATE COUNCIL OF TECHNICAL & VOCATIONAL EDUCATION & SKILL DEVELOPMENT (WBSCT&VE&SD)', 'BOARD OF OPEN SCHOOLING & SKILL EDUCATION (BOSSE)', 'BHARTIYA SHIKSHA BOARD'
-    ]
-
-    const updateData = e => {
-        setData2({
-            ...data2,
-            [e.target.name]: e.target.value
-        })
-    }
+    // useEffect(() => {
+    //     if(location.state == null) navigate('/login')
+    //     else{
+    //         setData2(location.state)
+    //     }
+    // })
 
     const reEdit = e => {
         e.preventDefault()
-        navigate(-1, { state: data2 })
+        navigate('/student-edit', { state: data2 })
     }
-
-    const continuePayment = e => {
-        e.preventDefault()
-    }
-
+    
     const [isOpen, setIsOpen] = useState(false);
-    const [clientCode, setClientCode] = useState("VARDH");
-    const [transUserName, setTransUserName] = useState("bhabesh.jha_4410");
-    const [transUserPassword, setTransUserPassword] = useState("VARDH_SP4410");
-    const [authkey, setAuthkey] = useState("NmWDlqhSSMc3Zfyg");
-    const [authiv, setAuthiv] = useState("J8D1Yz6FyCpOOl78");
-    const [payerName, setPayerName] = useState('');
-    const [payerEmail, setPayerEmail] = useState('');
-    const [payerMobile, setPayerMobile] = useState('');
-    const [clientTxnId, setclientTxnId] = useState('');
-    const [amount, setAmount] = useState(90);
-    const [payerAddress, setPayerAddress] = useState('');
+    const [clientCode, setClientCode] = useState("TM001");
+    const [transUserName, setTransUserName] = useState("spuser_2013");
+    const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
+    const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
+    const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
+    const [payerName, setPayerName] = useState(`${data2.name}`);
+    const [payerEmail, setPayerEmail] = useState(`${data2.email}`);
+    const [payerMobile, setPayerMobile] = useState(`${data2.mobile}`);
+    const [clientTxnId, setclientTxnId] = useState(uuidv4());
+    const [amount, setAmount] = useState(10);
+    const [payerAddress, setPayerAddress] = useState(`${data2.street_name}, ${data2.street_name_2}, ${data2.city}, ${data2.state}, ${data2.country}`);
     const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
     const [data, setData] = useState(null)
     const [udf1, setudf1] = useState(null);
@@ -95,18 +74,16 @@ function StudentReview() {
     const [programId, setprogramId] = useState(null);
     const [mcc, setmcc] = useState(null);
     const [amountType, setamountType] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('')
+    const [selectedOption, setSelectedOption] = useState('');
 
-    console.log(payerName, payerEmail, payerMobile, payerAddress);
+    console.log(payerName, payerEmail, payerMobile, payerAddress, clientTxnId);
 
-    useEffect(() => {
-        if(data2 != [] || data2 !== null || data2 !== undefined){
-            setPayerName(data2.name)
-            setPayerEmail(data2.email)
-            setPayerMobile(data2.mobile)
-            setPayerAddress(data2.street_name + ', ' + data2.street_name_2 + ', ' + data2.city + ', ' + data2.state + ', ' + data2.country)
-        }
-    })
+    // useEffect(() => {
+    //     setPayerName(data2.name)
+    //     setPayerEmail(data2.email)
+    //     setPayerMobile(data2.mobile)
+    //     setPayerAddress(data2.street_name + ', ' + data2.street_name_2 + ', ' + data2.city + ', ' + data2.state + ', ' + data2.country)
+    // })
 
 
     const handleSubmit = (e) => {
@@ -114,7 +91,7 @@ function StudentReview() {
         e.preventDefault()
         const btn = document.getElementById('renderSabPaisa');
         btn.click();
-        window.location.href = 'https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit'
+        window.location.href='https://stage-securepay.sabpaisa.in/SabPaisa/sabPaisaInit?v=1'
     }
 
   return (
@@ -402,6 +379,8 @@ function StudentReview() {
                             <i class="fa-solid fa-marker errspan"></i>
                         </Col>
                     </Row>
+
+                    <div id='renderSabPaisa'></div>
                     
                     <Row className='justify-content-center'>
                         <Col sm='3'>
@@ -415,8 +394,6 @@ function StudentReview() {
                             </div>
                         </Col>
                     </Row>
-
-                    <div id='renderSabPaisa'></div>
                     
                     <SabpaisaPaymentGateway clientCode={clientCode} transUserName={transUserName} transUserPassword={transUserPassword} authkey={authkey} authiv={authiv} payerName={payerName} payerEmail={payerEmail} payerMobile={payerMobile} clientTxnId={clientTxnId} amount={amount} payerAddress={payerAddress} callbackUrl={callbackUrl} isOpen={isOpen} />
                 </form>

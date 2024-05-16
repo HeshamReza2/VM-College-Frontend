@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import './PayReceipt.css'
 import { useLocation, useNavigate } from 'react-router'
+import './PaymentSlip.css'
+import axios from 'axios'
 import { Col, Container, Row } from 'react-bootstrap'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 
-function PayReceipt() {
-    const location = useLocation()
+function PaymentSlip() {
     const navigate = useNavigate()
+    const location = useLocation()
+    const searchParams = new URLSearchParams(location.search)
+  
+    const url = location.state.pathname
+    const params = new URL(url).searchParams
+  
+    const status = params.get('status')
+    const payerName = params.get('payerName')
+    const payerMobile = params.get('payerMobile')
 
-    const [ data, setData ] = useState(location.state)
-
-    useEffect(() => {
-        setData(location.state)
-    }, [location.state])
-
+    const [ data, setData ] = useState([])
     console.log(data)
 
-    const status = (status) => {
+    useEffect(() => {
+        axios
+            .post(`https://vm-college-backend-1.onrender.com/check-student`, { name: payerName, mobile: payerMobile })
+            .then(res => setData(res.data))
+            .catch(err => console.log(err))
+    }, [])
+
+    const status2 = (status) => {
         if(status == true) return 'SUCCESS'
         else if(status == false) return 'FAILED'
     }
@@ -25,10 +38,34 @@ function PayReceipt() {
 
     var date = new Date(data.date)
     console.log(`${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`);
+
+    const handleDownloadPDF = async () => {
+        // const input = document.getElementById('pdf-content')
+
+        // html2canvas(input).then((canvas) => {
+        //     const imgData = canvas.toDataURL('image/png');
+        //     const pdf = new jsPDF();
+        //     pdf.addImage(imgData, 'PNG', 0, 0);
+        //     pdf.save('admission-slip.pdf'); 
+        // })
+        const pdf = new jsPDF('portrait', 'pt', 'a4')
+        const data = await html2canvas(document.querySelector('#pdf-content'))
+        const img = data.toDataURL('image/png')
+        // const imgProperties = pdf.getImageProperties(img)
+        // const pdfWidth = pdf.internal.pageSize.getWidth()
+        // const pdfHeight = (imgProperties.height * pdfWidth) /imgProperties.width
+        // pdf.addImage(img, 'PNG', 0, 0)
+        // pdf.save('admission-slip.pdf')
+        img.onload = function(){
+            pdf.addImage(img, 'png', 0, 0)
+            pdf.save('admission-slip.pdf')
+        }
+
+    }
   return (
     <>
         <Container className='receipt-container'>
-            <Row className='justify-content-center receipt-container-row'>
+            <Row className='justify-content-center receipt-container-row' id='pdf-content'>
                 <Col sm='12' className='receipt-container-col receipt-container-col-1'>
                     <img src='../vm_logo.png' alt='VM Admission Logo' />
 
@@ -46,7 +83,7 @@ function PayReceipt() {
                         <p><b>Registration No:</b> {data.registration_no}</p>
                         <p><b>Mobile:</b> {data.mobile}</p>
                         <p><b>Transaction Id:</b> {data.transaction_id}</p>
-                        <p><b>Status:</b> {status(data.admission_status)}</p>
+                        <p><b>Status:</b> {status2(data.admission_status)}</p>
                     </div>
 
                     <div className='receipt-student-details receipt-student-details-3'>
@@ -93,7 +130,8 @@ function PayReceipt() {
         <Container className='receipt-container-2'>
             <Row className='receipt-container-2-row'>
                 <Col sm='12' className='receipt-container-2-col'>
-                    <a onClick={e => {e.preventDefault(); navigate(-1)}}><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+                    <a onClick={handleDownloadPDF}>Download</a>
+                    <a><i class="fa-solid fa-arrow-left"></i> Go Back</a>
                 </Col>
             </Row>
         </Container>
@@ -101,4 +139,4 @@ function PayReceipt() {
   )
 }
 
-export default PayReceipt
+export default PaymentSlip

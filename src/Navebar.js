@@ -76,7 +76,7 @@ function Navebar() {
     }, [pathname])
 
     useEffect(() => {
-        if(pathname?.includes('/pay-receipt')) setIncluding2(true)
+        if(pathname?.includes('/pay-receipt') || pathname?.includes('/response') || pathname?.includes('/payment-slip')) setIncluding2(true)
         else setIncluding2(false)
     }, [pathname])
 
@@ -89,16 +89,16 @@ function Navebar() {
     const [ footNav, setFootNav ] = useState('block')
     const [ receiptBox, setReceiptBox ] = useState('none')
     console.log(including2, footNav);
-    useEffect(() => {
-        if(including){
-            setTopNav('none')
-            setBotNav('block')
-        }
-        else if(!including){
-            setTopNav('block')
-            setBotNav('none')
-        }
-    }, [including])
+    // useEffect(() => {
+    //     if(including){
+    //         setTopNav('none')
+    //         setBotNav('block')
+    //     }
+    //     else if(!including){
+    //         setTopNav('block')
+    //         setBotNav('none')
+    //     }
+    // }, [including])
     
     useEffect(() => {
         if(including2){
@@ -107,7 +107,7 @@ function Navebar() {
             setFootNav('none')
             setReceiptBox('block')
         }
-        else if(!including){
+        else if(!including2){
             if(including){
                 setTopNav('none')
                 setBotNav('block')
@@ -401,7 +401,7 @@ function Navebar() {
             <Outlet />
         </Container>
 
-        <Container fluid style={{ display: footNav }}>
+        <Container fluid style={{ display: footNav, padding: 0 }}>
             <Footer />
         </Container>
 

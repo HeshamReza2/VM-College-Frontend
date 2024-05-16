@@ -54,7 +54,7 @@ function StudentsEdit() {
         axios
             .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, data)
             .then(res => {
-                navigate('/student-details-review', { state: data })
+                navigate(`/student-details-review/${data.registration_no}`, { state: data })
             })
             .catch(err => console.log(err))
     }

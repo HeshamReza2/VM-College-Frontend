@@ -138,26 +138,6 @@ function AdmittedStudents() {
                 </div>
             </Col>
 
-            <Col sm='12' className='dashboard-select-entry'>
-                <div className='selector'>
-                    <div className='entries-box'>
-                        <p>Show</p>
-                        <select id='entries' name='entries' onChange={(e) => {setEntriesNum(e.target.value); setPage(0)}}>
-                            <option value='10'>10</option>
-                            <option value='25'>25</option>
-                            <option value='50'>50</option>
-                            <option value='100'>100</option>
-                        </select>
-                        <p>entries</p>
-                    </div>
-
-                    <div className='searching'>
-                        <input type='text' placeholder='Search...' onChange={e => setSearchItem(e.target.value)} />
-                        <button>Search</button>
-                    </div>
-                </div>
-            </Col>
-
             <Col sm='12' className='add-payment'>
                 <div className='buttoned'>
                     <Popup trigger={<button><i class="fa-solid fa-plus"></i> Add Student</button>} modal nested contentStyle={popupStyle()}>
@@ -332,7 +312,7 @@ function AdmittedStudents() {
                                                 <ul>
                                                     <li><a onClick={e => {e.preventDefault(); navigate('/pay-receipt', { state: item });}}>Pay Receipt <i class="fa-solid fa-receipt"></i></a></li>
                                                     <li><a>Admission Receipt <i class="fa-solid fa-file-invoice"></i></a></li>
-                                                    <li><a>Profile <i class="fa-solid fa-pen-to-square"></i></a></li>
+                                                    <li><a onClick={e => {e.preventDefault(); navigate('/institute/admitted-student-profile', { state: item });}}>Profile <i class="fa-solid fa-pen-to-square"></i></a></li>
                                                 </ul>
                                             </td>
                                         </tr>

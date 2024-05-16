@@ -1,8 +1,21 @@
 import React from 'react'
 import './PaymentStatus.css'
 import { Col, Container, Row } from 'react-bootstrap'
+import { useLocation } from 'react-router';
 
 function PaymentStatus() {
+  const location = useLocation();
+    const resutfromResponse = location?.state?.data;
+    console.log("Payment Gateway Response ::", resutfromResponse);
+    
+
+    const pairs = resutfromResponse.split("&")
+
+    const keyValuePairs = pairs.map((pair, index) => {
+        const [key, value] = pair.split("=")
+        const decodedValue = decodeURIComponent(value)
+        return { id: index + 1, key, value: decodedValue }
+    })
   return (
     <>
       <Container fluid>
@@ -35,6 +48,27 @@ function PaymentStatus() {
               <div className='searching'>
                 <button>Search</button>
               </div>
+          </Col>
+
+          <Col sm='12'>
+            <table className="table table-hover">
+              <thead>
+                <tr className='bg-success text-white'>
+                  <th scope="col">Sl No.</th>
+                  <th scope="col">Key</th>
+                  <th scope="col">Values</th>
+                </tr>
+              </thead>
+              {keyValuePairs.map(pair => (
+                <tbody key={pair.id} className='bg-warning text-white'>
+                  <tr>
+                    <th scope="row">{pair.id}</th>
+                    <td>{pair.key}</td>
+                    <td>{pair.value}</td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
           </Col>
         </Row>
       </Container>

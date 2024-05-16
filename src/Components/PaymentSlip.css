@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     color: rgb(165, 0, 0);
+    margin-bottom: 20px;
+    margin-top: 100px;
 }
 
 .receipt-container-row{
@@ -138,7 +140,7 @@
 .receipt-container-2-col{
     margin-top: 45px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .receipt-container-2 .receipt-container-2-row .receipt-container-2-col a{
