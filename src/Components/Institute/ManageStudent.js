@@ -4,8 +4,11 @@ import { Col, Container, Row } from 'react-bootstrap'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
+import Popup from 'reactjs-popup'
+import { useNavigate } from 'react-router'
 
 function ManageStudent() {
+    const navigate = useNavigate()
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList3, setStudentsList3 ] = useState(studentsList)
     console.log(studentsList3);
@@ -54,6 +57,28 @@ function ManageStudent() {
         if(searchItem == '') setStudentsList3(studentsList)
         if(searchItem !== '') setStudentsList3([])
     }, [searchItem, studentsList])
+
+    const [ matches4, setMatches4 ] = useState(window.matchMedia('(max-width: 425px)').matches)
+
+    const popupStyle4 = () => {
+        if(matches4 == true) return {'width': '100%'}
+        else if(matches4 == false) return {'width': '500px'}
+    }
+
+    useEffect(() => {
+        window
+            .matchMedia('(max-width: 425px)')
+            .addEventListener('change', e => setMatches4( e.matches ))
+    })
+
+    const [ flip, setFlip ] = useState('')
+
+    const deleteStudent = (id) => {
+        axios
+            .delete(`https://vm-college-backend-1.onrender.com/delete-student/${id}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    } 
   return (
     <Container fluid>
         <Row>
@@ -125,7 +150,30 @@ function ManageStudent() {
                                                 <td>{item.mobile}</td>
                                                 <td>{item.amount}</td>
                                                 <td>{admissionStatus(item.admission_status)}</td>
-                                                <td>Action</td>
+                                                <td className='btn-act-parent'>
+                                                    <a className='btn-act' onClick={e => {e.preventDefault(); navigate(`/institute/edit-student/${item.registration_no}`, {state: item })}}><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <Popup trigger={<a className='btn-act'><i class="fa-solid fa-trash"></i></a>} modal nested contentStyle={popupStyle4()}>
+                                                        {
+                                                            close => (
+                                                                <>
+                                                                    <Container className='delete-popup-container'>
+                                                                        <Row className='justify-content-center delete-popup-row'>
+                                                                            <Col sm='12' className='delete-popup-col delete-popup-col-1'>
+                                                                                <a onClick={e => {e.preventDefault(); close()}} onMouseOver={() => setFlip('fa-flip')} onMouseLeave={() => setFlip('')}><i class={`fa-solid fa-circle-xmark ${flip}`}></i></a>
+                                                                            </Col>
+
+                                                                            <Col sm='12' className='delete-popup-col delete-popup-col-2'>
+                                                                                <h5>WARNING!</h5>
+                                                                                <p>If you proceed, this student data will be deleted!</p>
+                                                                                <button onClick={(e) => {e.preventDefault(); deleteStudent(item._id); close();}}>DELETE</button>
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </Container>
+                                                                </>
+                                                            )
+                                                        }
+                                                    </Popup>
+                                                </td>
                                             </tr>
                                         )
                                     }

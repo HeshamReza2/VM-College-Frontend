@@ -1,8 +1,21 @@
 import React from 'react'
 import './AdmissionFees.css'
 import { Col, Container, Row } from 'react-bootstrap'
+import { Pie } from 'react-chartjs-2'
 
 function AdmissionFees() {
+
+    const semesterWiseData = {
+        labels: [ '1st Semester', '2nd Semester', '3rd Semester', '4th Semester'],
+        datasets: [
+            {
+                data: [ '1000', '2000', '1500', '1200'],
+                backgroundColor: [ 'rgb(54, 162, 235)', 'rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(153, 102, 255)']
+            }
+        ]
+    }
+
+    const options = {}
   return (
     <Container fluid>
         <Row>
@@ -19,6 +32,30 @@ function AdmissionFees() {
 
                     <p>Talk to: 8017010592 / 9734103591</p>
                 </div>
+            </Col>
+
+            <Col sm='12' className='pieChart' style={{marginTop: '30px'}}>
+                <Row className='justify-content-center'>
+                    <Col sm='6'>
+                        <div className='pie-container'>
+                            <h4>Semester Wise</h4>
+
+                            <div style={{width: '100%'}} className='pie-chart'>
+                                <Pie data={semesterWiseData} options={options}></Pie>
+                            </div>
+                        </div>
+                    </Col>
+                    
+                    <Col sm='6'>
+                        <div className='pie-container'>
+                            <h4>Semester Wise</h4>
+
+                            <div style={{width: '100%'}} className='pie-chart'>
+                                <Pie data={semesterWiseData} options={options}></Pie>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
             </Col>
         </Row>
     </Container>

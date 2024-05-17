@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './PayReceipt.css'
 import { useLocation, useNavigate } from 'react-router'
 import { Col, Container, Row } from 'react-bootstrap'
+import generatePDF, { Resolution, Margin, Options } from "react-to-pdf";
 
 function PayReceipt() {
     const location = useLocation()
     const navigate = useNavigate()
+    const targetRef = useRef()
 
     const [ data, setData ] = useState(location.state)
 
@@ -28,7 +30,7 @@ function PayReceipt() {
   return (
     <>
         <Container className='receipt-container'>
-            <Row className='justify-content-center receipt-container-row'>
+            <Row className='justify-content-center receipt-container-row' id='pdf-content' ref={targetRef}>
                 <Col sm='12' className='receipt-container-col receipt-container-col-1'>
                     <img src='../vm_logo.png' alt='VM Admission Logo' />
 
@@ -93,6 +95,7 @@ function PayReceipt() {
         <Container className='receipt-container-2'>
             <Row className='receipt-container-2-row'>
                 <Col sm='12' className='receipt-container-2-col'>
+                    <a onClick={() => generatePDF(targetRef, {filename: `${data.registration_no}-admission-slip.pdf`})}>Download</a>
                     <a onClick={e => {e.preventDefault(); navigate(-1)}}><i class="fa-solid fa-arrow-left"></i> Go Back</a>
                 </Col>
             </Row>

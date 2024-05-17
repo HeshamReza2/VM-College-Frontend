@@ -38,6 +38,8 @@ import ReportEmail from './Components/Institute/ReportEmail';
 import PayReceipt from './Components/Institute/PayReceipt';
 import ApplicationForm from './Components/Institute/ApplicationForm';
 import PaymentSlip from './Components/PaymentSlip';
+import EditStudent from './Components/Institute/EditStudent';
+import EditManager from './Components/Institute/EditManager';
 
 function App() {
   return (
@@ -84,6 +86,8 @@ function App() {
               <Route path='/institute/question-paper' element={<QuestionPaper />} />
               <Route path='/institute/schedule' element={<Schedule />} />
               <Route path='/institute/intake' element={<Intake />} />
+              <Route path='/institute/edit-student/:registration_no' element={<EditStudent />} />
+              <Route path='/institute/edit-manager/:postId' element={<EditManager />} />
 
               {/* sms */}
               <Route path='/institute/sms-dashboard' element={<DashboardSms />} />
@@ -100,7 +104,7 @@ function App() {
             <Route path='/payment' element={<SabpaisaPage />} />
             <Route path='/response' element={<SabpaisaStatus />} />
             <Route path='/pay-receipt' element={<PayReceipt />} />
-            <Route path='/payment-slip' element={<PaymentSlip />} />
+            <Route path='/payment-slip/:registration_no' element={<PaymentSlip />} />
             <Route path='/institute/admitted-student-profile' element={<ApplicationForm />} />
 
           </Route>

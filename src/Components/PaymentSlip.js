@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import React, { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import './PaymentSlip.css'
 import axios from 'axios'
 import { Col, Container, Row } from 'react-bootstrap'
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
+import generatePDF, { Resolution, Margin, Options } from "react-to-pdf";
 
 function PaymentSlip() {
     const navigate = useNavigate()
     const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
-  
-    const url = location.state.pathname
-    const params = new URL(url).searchParams
-  
-    const status = params.get('status')
-    const payerName = params.get('payerName')
-    const payerMobile = params.get('payerMobile')
+    const targetRef = useRef()
+    const params = useParams()
+    console.log(params);
 
     const [ data, setData ] = useState([])
     console.log(data)
 
     useEffect(() => {
         axios
-            .post(`https://vm-college-backend-1.onrender.com/check-student`, { name: payerName, mobile: payerMobile })
+            .post(`https://vm-college-backend-1.onrender.com/single-student-find/${params.registration_no}`)
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -39,33 +33,11 @@ function PaymentSlip() {
     var date = new Date(data.date)
     console.log(`${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`);
 
-    const handleDownloadPDF = async () => {
-        // const input = document.getElementById('pdf-content')
 
-        // html2canvas(input).then((canvas) => {
-        //     const imgData = canvas.toDataURL('image/png');
-        //     const pdf = new jsPDF();
-        //     pdf.addImage(imgData, 'PNG', 0, 0);
-        //     pdf.save('admission-slip.pdf'); 
-        // })
-        const pdf = new jsPDF('portrait', 'pt', 'a4')
-        const data = await html2canvas(document.querySelector('#pdf-content'))
-        const img = data.toDataURL('image/png')
-        // const imgProperties = pdf.getImageProperties(img)
-        // const pdfWidth = pdf.internal.pageSize.getWidth()
-        // const pdfHeight = (imgProperties.height * pdfWidth) /imgProperties.width
-        // pdf.addImage(img, 'PNG', 0, 0)
-        // pdf.save('admission-slip.pdf')
-        img.onload = function(){
-            pdf.addImage(img, 'png', 0, 0)
-            pdf.save('admission-slip.pdf')
-        }
-
-    }
   return (
     <>
         <Container className='receipt-container'>
-            <Row className='justify-content-center receipt-container-row' id='pdf-content'>
+            <Row className='justify-content-center receipt-container-row' id='pdf-content' ref={targetRef}>
                 <Col sm='12' className='receipt-container-col receipt-container-col-1'>
                     <img src='../vm_logo.png' alt='VM Admission Logo' />
 
@@ -130,8 +102,8 @@ function PaymentSlip() {
         <Container className='receipt-container-2'>
             <Row className='receipt-container-2-row'>
                 <Col sm='12' className='receipt-container-2-col'>
-                    <a onClick={handleDownloadPDF}>Download</a>
-                    <a><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+                    <a onClick={() => generatePDF(targetRef, {filename: `${params.registration_no}-admission-slip.pdf`})}>Download</a>
+                    <a onClick={e => {e.preventDefault(); navigate('/')}}><i class="fa-solid fa-arrow-left"></i> Go Back</a>
                 </Col>
             </Row>
         </Container>

@@ -14,6 +14,16 @@ function StudentDetails() {
         if(location.state == null) navigate('/login')
         else setData(location.state)
     }, [])
+
+    const handleSubmit = () => {
+        if(data.admission_status == true) navigate(`/payment-slip/${data.registration_no}`)
+        else if(data.admission_status == false) navigate('/student-details-edit', { state: data})
+    }
+
+    const admStatus = () => {
+        if(data.admission_status == true) return 'ADMITTED'
+        else if(data.admission_status == false) return 'PAYMENT DUE'
+    }
     
   return (
     <Container fluid>
@@ -25,7 +35,7 @@ function StudentDetails() {
             </Col>
 
             <Col sm='12' className='student-details-col'>
-                <form className='student-details' onSubmit={() => navigate('/student-details-edit', { state: data})}>
+                <form className='student-details' onSubmit={e => {e.preventDefault(); handleSubmit()}}>
                     <div className='form-group'>
                         <label for='registration_no'>Registration Number</label>
 
@@ -58,6 +68,13 @@ function StudentDetails() {
                         <label for='year'>Class Name</label>
 
                         <input type='text' className='form-control my-3 input-text' autoFocus required name='year' placeholder='Enter Your Class Name' value={data.year} />
+                        <i class="fa-solid fa-users errspan"></i>
+                    </div>
+                    
+                    <div className='form-group'>
+                        <label for='admission_status'>Admission Status</label>
+
+                        <input type='text' className='form-control my-3 input-text' autoFocus required name='admission_status' placeholder='Enter Your Class Name' value={admStatus()} />
                         <i class="fa-solid fa-users errspan"></i>
                     </div>
                     

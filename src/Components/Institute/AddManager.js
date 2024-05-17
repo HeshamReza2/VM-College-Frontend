@@ -4,8 +4,12 @@ import { Col, Container, Row } from 'react-bootstrap'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
+import Popup from 'reactjs-popup'
+import { useNavigate } from 'react-router'
 
 function AddManager() {
+    const navigate = useNavigate()
+
     const [ managers, setManagers ] = useState([])
     const [ managers2, setManagers2 ] = useState(managers)
     console.log(managers2)
@@ -54,6 +58,21 @@ function AddManager() {
         if(status == false) return 'Not Permitted'
         else return 'Permitted'
     }
+
+    const [ matches5, setMatches5 ] = useState(window.matchMedia('(max-width: 425px)').matches)
+
+    const popupStyle5 = () => {
+        if(matches5 == true) return {'width': '100%'}
+        else if(matches5 == false) return {'width': '500px'}
+    }
+
+    useEffect(() => {
+        window
+            .matchMedia('(max-width: 425px)')
+            .addEventListener('change', e => setMatches5( e.matches ))
+    })
+
+    const [ flip, setFlip ] = useState('')
   return (
     <Container fluid>
         <Row>
@@ -116,7 +135,30 @@ function AddManager() {
                                             <td>{managerAccess(item.access)}</td>
                                             <td>{item.email}</td>
                                             <td>{item.mobile}</td>
-                                            <td>Action</td>
+                                            <td className='btn-act-parent'>
+                                                <a className='btn-act' onClick={e => {e.preventDefault(); navigate(`/institute/edit-manager/${item._id}`, {state: item })}}><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <Popup trigger={<a className='btn-act'><i class="fa-solid fa-trash"></i></a>} modal nested contentStyle={popupStyle5()}>
+                                                    {
+                                                        close => (
+                                                            <>
+                                                                <Container className='delete-popup-container'>
+                                                                    <Row className='justify-content-center delete-popup-row'>
+                                                                        <Col sm='12' className='delete-popup-col delete-popup-col-1'>
+                                                                            <a onClick={e => {e.preventDefault(); close()}} onMouseOver={() => setFlip('fa-flip')} onMouseLeave={() => setFlip('')}><i class={`fa-solid fa-circle-xmark ${flip}`}></i></a>
+                                                                        </Col>
+
+                                                                        <Col sm='12' className='delete-popup-col delete-popup-col-2'>
+                                                                            <h5>WARNING!</h5>
+                                                                            <p>If you proceed, this student data will be deleted!</p>
+                                                                            <button onClick={(e) => {e.preventDefault(); close();}}>DELETE</button>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Container>
+                                                            </>
+                                                        )
+                                                    }
+                                                </Popup>
+                                            </td>
                                         </tr>
                                     )
                                 })
