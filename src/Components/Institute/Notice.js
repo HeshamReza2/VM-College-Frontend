@@ -3,8 +3,35 @@ import './Notice.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
+import { useNavigate } from 'react-router'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 function Notice() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
     const [ notices, setNotices ] = useState([])
     const [ entriesNum, setEntriesNum ] = useState(10)
 

@@ -4,8 +4,47 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import Cookies from 'universal-cookie';
+import Popup from 'reactjs-popup';
+
+const cookies = new Cookies()
 
 function FeesManagement() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
+    const username = cookies.get('username')
+    const password = cookies.get('password')
+
+    const [ permit, setPermit ] = useState(false)
+
+    useEffect(() => {
+        axios
+            .post('http://localhost:8080/admin/search', { username: username })
+            .then(res => setPermit(res.data.access))
+            .catch(err => console.log(err))
+    }, [])
+
     const [ subjects, setSubjects ] = useState([])
     const [ subjects2, setSubjects2 ] = useState(subjects)
     console.log(subjects2);
@@ -50,6 +89,19 @@ function FeesManagement() {
         else return `${subjects2.length}`
     }
 
+    const [ matches6, setMatches6 ] = useState(window.matchMedia('(max-width: 425px)').matches)
+
+    const popupStyle6 = () => {
+        if(matches6 == true) return {'width': '100%'}
+        else if(matches6 == false) return {'width': '500px'}
+    }
+
+    useEffect(() => {
+        window
+            .matchMedia('(max-width: 425px)')
+            .addEventListener('change', e => setMatches6( e.matches ))
+    })
+
     const [ searchItem, setSearchItem ] = useState('')
     console.log(searchItem);
 
@@ -57,6 +109,15 @@ function FeesManagement() {
         if(searchItem == '') setSubjects2(subjects)
         if(searchItem !== '') setSubjects2([])
     })
+
+    const [ flip, setFlip ] = useState('')
+
+    const deleteSubject = (id) => {
+        axios
+            .delete(`http://localhost:8080/delete-subject/${id}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
   return (
     <Container fluid>
         <Row>
@@ -124,7 +185,30 @@ function FeesManagement() {
                                                 <td>{item.amount}</td>
                                                 <td>Admission</td>
                                                 <td>{item.semester}</td>
-                                                <td>Action</td>
+                                                <td className='btn-act-parent'>
+                                                    <button className='btn-act' onClick={e => {e.preventDefault(); navigate(`/institute/edit-fees/${item._id}`, {state: item })}} disabled={!permit}><i class="fa-solid fa-pen-to-square"></i></button>
+                                                    <Popup trigger={<button className='btn-act' disabled={!permit}><i class="fa-solid fa-trash"></i></button>} modal nested contentStyle={popupStyle6()}>
+                                                        {
+                                                            close => (
+                                                                <>
+                                                                    <Container className='delete-popup-container'>
+                                                                        <Row className='justify-content-center delete-popup-row'>
+                                                                            <Col sm='12' className='delete-popup-col delete-popup-col-1'>
+                                                                                <a onClick={e => {e.preventDefault(); close()}} onMouseOver={() => setFlip('fa-flip')} onMouseLeave={() => setFlip('')}><i class={`fa-solid fa-circle-xmark ${flip}`}></i></a>
+                                                                            </Col>
+
+                                                                            <Col sm='12' className='delete-popup-col delete-popup-col-2'>
+                                                                                <h5>WARNING!</h5>
+                                                                                <p>If you proceed, this student data will be deleted!</p>
+                                                                                <button onClick={(e) => {e.preventDefault(); deleteSubject(item._id); close();}}>DELETE</button>
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </Container>
+                                                                </>
+                                                            )
+                                                        }
+                                                    </Popup>
+                                                </td>
                                             </tr>
                                         )
                                     }

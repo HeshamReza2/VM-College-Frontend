@@ -4,8 +4,34 @@ import './NonadmittedStudent.css'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
+import Cookies from 'universal-cookie'
+import { useNavigate } from 'react-router'
+
+const cookies = new Cookies()
 
 function NonadmittedStudent() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList2, setStudentsList2 ] = useState(studentsList)
     console.log(studentsList2)

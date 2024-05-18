@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie'
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
+import axios from 'axios'
 
 ChartJS.register(
   ArcElement, Tooltip, Legend
@@ -19,15 +20,25 @@ const cookies = new Cookies()
 function InstituteDashboard() {
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if(!cookies.get('username')){
-  //     navigate('/')
-  //   }
+  useEffect(() => {
+    if(!cookies.get('username')){
+      navigate('/')
+    }
     
-  //   else if(!cookies.get('password')){
-  //     navigate('/')
-  //   }
-  // })
+    else if(!cookies.get('password')){
+      navigate('/')
+    }
+
+    else{
+      axios
+        .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+        .then(res => {
+          if(res.data == 'Valid') console.log('Valid')
+          else navigate('/')
+        })
+        .catch(err => console.log(err))
+    }
+  })
   const studentsData = [
     { name: 'Admitted Students', students: 924},
     { name: 'Total Students', students: 1126}

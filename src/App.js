@@ -40,6 +40,9 @@ import ApplicationForm from './Components/Institute/ApplicationForm';
 import PaymentSlip from './Components/PaymentSlip';
 import EditStudent from './Components/Institute/EditStudent';
 import EditManager from './Components/Institute/EditManager';
+import EditFees from './Components/Institute/EditFees';
+import ExcelFile from './Components/Institute/ExcelFile';
+import SamplePage from './Components/Institute/SamplePage';
 
 function App() {
   return (
@@ -79,15 +82,19 @@ function App() {
 
               {/* institution */}
               <Route path='/institute/manage-student' element={<ManageStudent />} />
+              <Route path='/institute/edit-student/:registration_no' element={<EditStudent />} />
+              <Route path='/institute/admitted-student-profile' element={<ApplicationForm />} />
               <Route path='/institute/add-manager' element={<AddManager />} />
+              <Route path='/institute/edit-manager/:postId' element={<EditManager />} />
               <Route path='/institute/notice' element={<Notice />} />
               <Route path='/institute/fees-management' element={<FeesManagement />} />
+              <Route path='/institute/edit-fees/:postId' element={<EditFees />} />
               <Route path='/institute/open-and-close' element={<OpenClose />} />
               <Route path='/institute/question-paper' element={<QuestionPaper />} />
               <Route path='/institute/schedule' element={<Schedule />} />
               <Route path='/institute/intake' element={<Intake />} />
-              <Route path='/institute/edit-student/:registration_no' element={<EditStudent />} />
-              <Route path='/institute/edit-manager/:postId' element={<EditManager />} />
+              <Route path='/institute/excel' element={<ExcelFile />} />
+              <Route path='/institute/sample' element={<SamplePage />} />
 
               {/* sms */}
               <Route path='/institute/sms-dashboard' element={<DashboardSms />} />
@@ -105,7 +112,6 @@ function App() {
             <Route path='/response' element={<SabpaisaStatus />} />
             <Route path='/pay-receipt' element={<PayReceipt />} />
             <Route path='/payment-slip/:registration_no' element={<PaymentSlip />} />
-            <Route path='/institute/admitted-student-profile' element={<ApplicationForm />} />
 
           </Route>
         </Routes>

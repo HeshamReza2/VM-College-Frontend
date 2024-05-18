@@ -1,10 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import './ApplicationForm.css'
 import { Col, Container, Row } from 'react-bootstrap'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 function ApplicationForm() {
     const location = useLocation()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
     const [ data, setData ] = useState(location.state)
     console.log(data)
     useEffect(() => {

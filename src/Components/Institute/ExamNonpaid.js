@@ -1,8 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './ExamNonpaid.css'
 import { Col, Container, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router'
+import Cookies from 'universal-cookie'
+import axios from 'axios'
+
+const cookies = new Cookies()
 
 function ExamNonpaid() {
+    
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
+    
   return (
     <Container fluid>
         <Row>

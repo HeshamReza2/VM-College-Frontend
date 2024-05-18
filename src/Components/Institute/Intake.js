@@ -3,8 +3,35 @@ import './Intake.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate';
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 function Intake() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
     const [ intake, setIintake ] = useState([])
     const [ intake2, setIintake2 ] = useState(intake)
     console.log(intake2)

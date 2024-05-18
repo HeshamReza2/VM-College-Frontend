@@ -6,9 +6,33 @@ import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useNavigate } from 'react-router'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 function AdmittedStudents() {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList2, setStudentsList2 ] = useState(studentsList)
     console.log(studentsList)
@@ -20,6 +44,25 @@ function AdmittedStudents() {
     const [ pageCount, setPageCount ] = useState(1)
 
     const [ subjects, setSubjects ] = useState([])
+    const [ subjects2, setSubjects2 ] = useState([])
+
+    function getUniqueListBy(arr, key) {
+        let newArr = []
+        let uniqueObj = {}
+        for(let i in arr){
+            var sub = arr[i]['subject']
+            uniqueObj[sub] = arr[i]
+        }
+        for(let i in uniqueObj) newArr.push(uniqueObj[i])
+        
+        setSubjects2(newArr)
+    }
+
+    useEffect(() => {
+        if(subjects != [] || subjects !== undefined || subjects !== null){
+            getUniqueListBy(subjects, 'subject')
+        }
+    }, [subjects])
 
     useEffect(() => {
         setMaxAmount((page+1)*entriesNum)
@@ -185,7 +228,7 @@ function AdmittedStudents() {
                                                     <select class="form-select form-group-6-select" aria-label=".form-select-lg example" autoFocus name='course' onChange={updateStudentData} >
                                                         <option selected hidden value=''>Select Student's Course</option>
                                                         {
-                                                            subjects && subjects.map((item, index) => {
+                                                            subjects2 && subjects2.map((item, index) => {
                                                                 return(
                                                                     <option value={item.subject}>{item.subject}</option>
                                                                 )

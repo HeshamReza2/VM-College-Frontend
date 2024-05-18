@@ -4,8 +4,34 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 function OpenClose() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
     const [ openclose, setOpenclose ] = useState([])
     const [ openclose2, setOpenclose2 ] = useState(openclose)
     console.log(openclose2);

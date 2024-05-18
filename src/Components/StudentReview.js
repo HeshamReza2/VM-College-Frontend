@@ -37,11 +37,11 @@ function StudentReview(props) {
     }
     
     const [isOpen, setIsOpen] = useState(false);
-    const [clientCode, setClientCode] = useState("TM001");
-    const [transUserName, setTransUserName] = useState("spuser_2013");
-    const [transUserPassword, setTransUserPassword] = useState("RIADA_SP336");
-    const [authkey, setAuthkey] = useState("kaY9AIhuJZNvKGp2");
-    const [authiv, setAuthiv] = useState("YN2v8qQcU3rGfA1y");
+    const [clientCode, setClientCode] = useState("VARDH");
+    const [transUserName, setTransUserName] = useState("bhabesh.jha_4410");
+    const [transUserPassword, setTransUserPassword] = useState("VARDH_SP4410");
+    const [authkey, setAuthkey] = useState("NmWDlqhSSMc3Zfyg");
+    const [authiv, setAuthiv] = useState("J8D1Yz6FyCpOOl78");
     const [payerName, setPayerName] = useState(`${data2.name}`);
     const [payerEmail, setPayerEmail] = useState(`${data2.email}`);
     const [payerMobile, setPayerMobile] = useState(`${data2.mobile}`);
@@ -91,7 +91,7 @@ function StudentReview(props) {
         e.preventDefault()
         const btn = document.getElementById('renderSabPaisa');
         btn.click();
-        window.location.href='https://stage-securepay.sabpaisa.in/SabPaisa/sabPaisaInit?v=1'
+        window.location.href='https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit'
     }
 
   return (

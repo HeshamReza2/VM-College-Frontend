@@ -6,9 +6,44 @@ import ReactPaginate from 'react-paginate'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import Popup from 'reactjs-popup'
 import { useNavigate } from 'react-router'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 function AddManager() {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!cookies.get('username')){
+            navigate('/')
+        }
+        
+        else if(!cookies.get('password')){
+            navigate('/')
+        }
+
+        else{
+            axios
+                .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+                .then(res => {
+                        if(res.data == 'Valid') console.log('Valid')
+                        else navigate('/')
+                    })
+                .catch(err => console.log(err))
+        }
+    })
+
+    const username = cookies.get('username')
+    const password = cookies.get('password')
+
+    const [ permit, setPermit ] = useState(false)
+
+    useEffect(() => {
+        axios
+            .post('http://localhost:8080/admin/search', { username: username })
+            .then(res => setPermit(res.data.access))
+            .catch(err => console.log(err))
+    }, [])
 
     const [ managers, setManagers ] = useState([])
     const [ managers2, setManagers2 ] = useState(managers)
@@ -73,6 +108,13 @@ function AddManager() {
     })
 
     const [ flip, setFlip ] = useState('')
+
+    const deleteManager = (id) => {
+        axios
+            .delete(`http://localhost:8080/admin/delete/${id}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
   return (
     <Container fluid>
         <Row>
@@ -136,8 +178,8 @@ function AddManager() {
                                             <td>{item.email}</td>
                                             <td>{item.mobile}</td>
                                             <td className='btn-act-parent'>
-                                                <a className='btn-act' onClick={e => {e.preventDefault(); navigate(`/institute/edit-manager/${item._id}`, {state: item })}}><i class="fa-solid fa-pen-to-square"></i></a>
-                                                <Popup trigger={<a className='btn-act'><i class="fa-solid fa-trash"></i></a>} modal nested contentStyle={popupStyle5()}>
+                                                <button className='btn-act' onClick={e => {e.preventDefault(); navigate(`/institute/edit-manager/${item._id}`, {state: item })}} disabled={!permit}><i class="fa-solid fa-pen-to-square"></i></button>
+                                                <Popup trigger={<button className='btn-act' disabled={!permit}><i class="fa-solid fa-trash"></i></button>} modal nested contentStyle={popupStyle5()}>
                                                     {
                                                         close => (
                                                             <>
@@ -150,7 +192,7 @@ function AddManager() {
                                                                         <Col sm='12' className='delete-popup-col delete-popup-col-2'>
                                                                             <h5>WARNING!</h5>
                                                                             <p>If you proceed, this student data will be deleted!</p>
-                                                                            <button onClick={(e) => {e.preventDefault(); close();}}>DELETE</button>
+                                                                            <button onClick={(e) => {e.preventDefault(); deleteManager(item._id); close();}}>DELETE</button>
                                                                         </Col>
                                                                     </Row>
                                                                 </Container>

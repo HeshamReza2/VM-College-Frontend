@@ -7,6 +7,12 @@
     padding: 5px;
     font-size: 20px;
     cursor: pointer;
+    background-color: transparent;
+    border: 0;
+}
+
+.btn-act:focus{
+    outline: 0;
 }
 
 .btn-act-parent .btn-act:first-child{
@@ -16,6 +22,16 @@
 .btn-act-parent .btn-act:first-child:hover{
     color: white;
     background-color: green;
+    border-radius: 7px;
+}
+
+.btn-act-parent .btn-act:last-child{
+    color: rgb(167, 0, 0);
+}
+
+.btn-act-parent .btn-act:last-child:hover{
+    color: white;
+    background-color: rgb(167, 0, 0);
     border-radius: 7px;
 }
 

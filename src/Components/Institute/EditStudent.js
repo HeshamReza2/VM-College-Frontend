@@ -3,12 +3,37 @@ import './EditStudent.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 function EditStudent() {
   const location = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!cookies.get('username')){
+      navigate('/')
+    }
+    
+    else if(!cookies.get('password')){
+      navigate('/')
+    }
+
+    else{
+      axios
+        .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
+        .then(res => {
+            if(res.data == 'Valid') console.log('Valid')
+            else navigate('/')
+          })
+        .catch(err => console.log(err))
+    }
+
+    if(location.state == null || location.state == [] || location.state == undefined) navigate('/')
+  })
   
-  const [ data, setData ] = useState(location.state)
+  const [ data, setData ] = useState(location.state || [])
   const [ data2, setData2 ] = useState([])
   console.log(data2);
 
@@ -49,9 +74,9 @@ function EditStudent() {
 
     const updateStudent = () => {
       axios
-        .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, data2)
-        .then(() => console.log('Done'))
-        .catch(err => console.log(err))
+      .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, data2)
+      .then(() => console.log('Done'))
+      .catch(err => console.log(err))
     }
   
   return (
