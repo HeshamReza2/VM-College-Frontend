@@ -11,8 +11,9 @@ function SamplePage() {
       <table>
         <thead>
             <tr>
-                <th>Segment</th>
-                <th>Country</th>
+                <th>name</th>
+                <th>father_name</th>
+                <th>roll</th>
             </tr>
         </thead>
 
@@ -21,8 +22,9 @@ function SamplePage() {
                 if(index<10){
                     return(
                         <tr key={index}>
-                            <td>{item.Segment}</td>
-                            <td>{item.Country}</td>
+                            <td>{item.name}</td>
+                            <td>{item.father_name}</td>
+                            <td>{item.roll}</td>
                         </tr>
                     )
                 }

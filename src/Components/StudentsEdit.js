@@ -52,7 +52,7 @@ function StudentsEdit() {
     const submitApplication = e => {
         e.preventDefault()
         axios
-            .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, data)
+            .patch(`http://localhost:8080/update-student/${data._id}`, data)
             .then(res => {
                 navigate(`/student-details-review/${data.registration_no}`, { state: data })
             })

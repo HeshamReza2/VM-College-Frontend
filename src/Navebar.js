@@ -76,7 +76,7 @@ function Navebar() {
     }, [pathname])
 
     useEffect(() => {
-        if(pathname?.includes('/pay-receipt') || pathname?.includes('/response') || pathname?.includes('/payment-slip')) setIncluding2(true)
+        if(pathname?.includes('/pay-receipt') || pathname?.includes('/response') || pathname?.includes('/payment-slip/') || pathname?.includes('/application-filled-from/')) setIncluding2(true)
         else setIncluding2(false)
     }, [pathname])
 
@@ -225,14 +225,14 @@ function Navebar() {
 
     useEffect(() => {
         axios
-            .post(`https://vm-college-backend-1.onrender.com/admin/search`, { username: loginData.username })
+            .post(`http://localhost:8080/admin/search`, { username: loginData.username })
             .then(({ data }) => {
                 if(data == null || data == undefined || data == []){
                     setValid(false)
                 }
                 else{
                     axios
-                        .post(`https://vm-college-backend-1.onrender.com/admin/login`, loginData)
+                        .post(`http://localhost:8080/admin/login`, loginData)
                         .then(({ data }) => {
                             if(data == 'Invalid') setValid(false)
                             else if(data == 'Valid') setValid(true)

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './OpenClose.css'
-import { Col, Container, Row } from 'react-bootstrap'
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
+import { Col, Container, Row } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
@@ -58,7 +57,7 @@ function OpenClose() {
         else if(Math.ceil(openclose2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get(`https://vm-college-backend-1.onrender.com/openclose`)
+            .get(`http://localhost:8080/openclose`)
             .then(res => setOpenclose(res.data))
             .catch(err => console.log(err))
     })
@@ -107,7 +106,7 @@ function OpenClose() {
 
     const updateAllSubject = (type, courseType, semester, status) => {
         axios
-            .patch(`https://vm-college-backend-1.onrender.com/update-all-subjects`, { type: type, courseType: courseType, semester: semester, status: !status })
+            .patch(`http://localhost:8080/update-all-subjects`, { type: type, courseType: courseType, semester: semester, status: !status })
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
@@ -115,13 +114,13 @@ function OpenClose() {
     const updateStatus = (item) => {
         if(item.status == false){
             axios
-                .patch(`https://vm-college-backend-1.onrender.com/update-openclose/${item._id}`, { status: 'true'})
+                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'true'})
                 .then(() => updateAllSubject(item.type, item.programme, item.semester, item.status))
                 .catch(err => console.log(err))
         }
         else if(item.status == true){
             axios
-                .patch(`https://vm-college-backend-1.onrender.com/update-openclose/${item._id}`, { status: 'false'})
+                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'false'})
                 .then(() => updateAllSubject(item.type, item.programme, item.semester, item.status))
                 .catch(err => console.log(err))
         }
@@ -208,7 +207,7 @@ function OpenClose() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>

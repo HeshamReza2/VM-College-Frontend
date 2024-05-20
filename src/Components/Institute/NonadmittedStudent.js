@@ -3,7 +3,6 @@ import { Col, Container, Row } from 'react-bootstrap'
 import './NonadmittedStudent.css'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import Cookies from 'universal-cookie'
 import { useNavigate } from 'react-router'
 
@@ -58,7 +57,7 @@ function NonadmittedStudent() {
         else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .post(`https://vm-college-backend-1.onrender.com/find-student`, { field: 'admission_status', value: 'false' })
+            .post(`http://localhost:8080/find-student`, { field: 'admission_status', value: 'false' })
             .then((res) => setStudentsList(res.data))
             .catch(err => console.log(err))
     }, [page, entriesNum, studentsList, studentsList2])
@@ -166,7 +165,7 @@ function NonadmittedStudent() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>

@@ -21,7 +21,7 @@ function SabpaisaStatus() {
 
   useEffect(() => {
       axios
-          .post(`https://vm-college-backend-1.onrender.com/check-student`, { name: payerName, mobile: payerMobile })
+          .post(`http://localhost:8080/check-student`, { name: payerName, mobile: payerMobile })
           .then(res => setData(res.data))
           .catch(err => console.log(err))
   }, [])
@@ -32,7 +32,7 @@ function SabpaisaStatus() {
 
   const updateAdmStatus = (status) => {
     axios
-      .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, { admission_status: status, date: Date.now()})
+      .patch(`http://localhost:8080/update-student/${data._id}`, { admission_status: status, date: Date.now()})
       .then(() => console.log('Status updated'))
       .catch(err => console.log(err))
   }
@@ -52,13 +52,13 @@ function SabpaisaStatus() {
 
   const nextPageLink = () => {
     if(status == 'SUCCESS') navigate(`/payment-slip/${data.registration_no}`)
-    else if(status == 'FAILED') navigate('/login')
+    else if(status == 'FAILED') window.location.href='http://localhost:3000/login'
   }
 
   useEffect(() => {
     setTimeout(() => {
       if(status == 'SUCCESS') navigate(`/payment-slip/${data.registration_no}`)
-      else if(status == 'FAILED') navigate('/login')
+      else if(status == 'FAILED') window.location.href='http://localhost:3000/login'
     }, 10000);
   })
 

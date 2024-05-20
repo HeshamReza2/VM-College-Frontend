@@ -40,7 +40,7 @@ function Login() {
 
     useEffect(() => {
         axios
-            .get(`https://vm-college-backend-1.onrender.com/subjects`)
+            .get(`http://localhost:8080/subjects`)
             .then(res => setSubjects(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -68,7 +68,7 @@ function Login() {
 
     useEffect(() => {
         axios
-            .post(`https://vm-college-backend-1.onrender.com/single-student`, data)
+            .post(`http://localhost:8080/single-student`, data)
             .then(res => setResult(res.data[0]))
             .catch(err => console.log(err))
     }, [data])

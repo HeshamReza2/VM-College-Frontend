@@ -21,11 +21,11 @@ function Home() {
         <Row className='text-center'>
           <Col sm='9'>
             <Row className='justify-content-center'>
-              <Col sm='6' className='equal-height-column admission-box-column'>
+              <Col sm='12' className='equal-height-column admission-box-column'>
                 <Row className='admission-box' onClick={() => navigate('/login')}>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For UG</h6>
-                  <p><a>Online Admission 2023-27 for UG-2nd Semester</a></p>
+                  {/* <p><a>Online Admission 2023-27 for UG-2nd Semester</a></p> */}
                 </Row>
 
                 <Row className='admission-box-content justify-content-center'>
@@ -71,7 +71,7 @@ function Home() {
                 </Row>
               </Col>
               
-              <Col sm='6' className='equal-height-column admission-box-column'>
+              {/* <Col sm='6' className='equal-height-column admission-box-column'>
                 <Row className='admission-box' onClick={() => navigate('/login')}>
                   <i class="fa-solid fa-graduation-cap"></i>
                   <h6>Online Admission 2024 For Inter-</h6>
@@ -125,7 +125,7 @@ function Home() {
                     </table>
                   </div>
                 </Row>
-              </Col>
+              </Col> */}
             </Row>
           </Col>
           
@@ -216,7 +216,7 @@ function Home() {
         <Row className='justify-content-center'>
           <Col sm='9'>
             <Row>
-              <Col sm='6' className='admission-info equal-height-column'>
+              <Col sm='12' className='admission-info equal-height-column'>
                 <div className='admission-info-details'>
                   <h6>Admission Info</h6>
 
@@ -229,7 +229,7 @@ function Home() {
                 </div>
               </Col>
               
-              <Col sm='6' className='admission-info equal-height-column'>
+              {/* <Col sm='6' className='admission-info equal-height-column'>
                 <div className='admission-info-details'>
                   <h6>Admission Info</h6>
 
@@ -240,7 +240,7 @@ function Home() {
                     <li><a>Last Date Extended Notification</a></li>
                   </ul>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Col>
 

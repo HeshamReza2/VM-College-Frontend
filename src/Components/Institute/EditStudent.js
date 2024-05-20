@@ -49,7 +49,7 @@ function EditStudent() {
 
   useEffect(() => {
     axios
-      .get(`https://vm-college-backend-1.onrender.com/subjects`)
+      .get(`http://localhost:8080/subjects`)
       .then(res => setSubjects(res.data))
       .catch(err => console.log(err))
     }, [])
@@ -74,7 +74,7 @@ function EditStudent() {
 
     const updateStudent = () => {
       axios
-      .patch(`https://vm-college-backend-1.onrender.com/update-student/${data._id}`, data2)
+      .patch(`http://localhost:8080/update-student/${data._id}`, data2)
       .then(() => console.log('Done'))
       .catch(err => console.log(err))
     }

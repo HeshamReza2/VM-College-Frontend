@@ -43,6 +43,7 @@ import EditManager from './Components/Institute/EditManager';
 import EditFees from './Components/Institute/EditFees';
 import ExcelFile from './Components/Institute/ExcelFile';
 import SamplePage from './Components/Institute/SamplePage';
+import ApplicationFilledForm from './Components/ApplicationFilledForm';
 
 function App() {
   return (
@@ -112,6 +113,7 @@ function App() {
             <Route path='/response' element={<SabpaisaStatus />} />
             <Route path='/pay-receipt' element={<PayReceipt />} />
             <Route path='/payment-slip/:registration_no' element={<PaymentSlip />} />
+            <Route path='/application-filled-from/:registration_no' element={<ApplicationFilledForm />} />
 
           </Route>
         </Routes>

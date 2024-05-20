@@ -46,7 +46,7 @@ function StudentReview(props) {
     const [payerEmail, setPayerEmail] = useState(`${data2.email}`);
     const [payerMobile, setPayerMobile] = useState(`${data2.mobile}`);
     const [clientTxnId, setclientTxnId] = useState(uuidv4());
-    const [amount, setAmount] = useState(10);
+    const [amount, setAmount] = useState(1);
     const [payerAddress, setPayerAddress] = useState(`${data2.street_name}, ${data2.street_name_2}, ${data2.city}, ${data2.state}, ${data2.country}`);
     const [callbackUrl, setCallbackUrl] = useState("http://localhost:3000/response");
     const [data, setData] = useState(null)
@@ -90,8 +90,8 @@ function StudentReview(props) {
         setIsOpen(true);
         e.preventDefault()
         const btn = document.getElementById('renderSabPaisa');
-        btn.click();
-        window.location.href='https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit'
+        btn.click(window.location.href='https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit?v=1');
+        //window.location.href='https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit'
     }
 
   return (

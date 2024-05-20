@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './QuestionPaper.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate';
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 import { useNavigate } from 'react-router';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -150,7 +149,7 @@ function QuestionPaper() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>

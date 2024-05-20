@@ -49,7 +49,7 @@ const SabpaisaPage = (props) => {
     setIsOpen(true);
     e.preventDefault()
     const btn = document.getElementById('renderSabPaisa');
-    btn.click(window.location.href='https://stage-securepay.sabpaisa.in/SabPaisa/sabPaisaInit?v=1');
+    btn.click(window.location.href='https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit?v=1');
   }
 
 

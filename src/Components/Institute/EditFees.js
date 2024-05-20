@@ -51,7 +51,7 @@ function EditFees() {
 
     const updateFeesDetails = (id) => {
         axios
-            .patch(`https://vm-college-backend-1.onrender.com/update-subject/${id}`, data2)
+            .patch(`http://localhost:8080/update-subject/${id}`, data2)
             .then(res => console.log('Done'))
             .catch(err => console.log(err))
     }

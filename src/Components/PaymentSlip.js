@@ -17,7 +17,7 @@ function PaymentSlip() {
 
     useEffect(() => {
         axios
-            .post(`https://vm-college-backend-1.onrender.com/single-student-find/${params.registration_no}`)
+            .post(`http://localhost:8080/single-student-find/${params.registration_no}`)
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -103,7 +103,7 @@ function PaymentSlip() {
             <Row className='receipt-container-2-row'>
                 <Col sm='12' className='receipt-container-2-col'>
                     <a onClick={() => generatePDF(targetRef, {filename: `${params.registration_no}-admission-slip.pdf`})}>Download</a>
-                    <a onClick={e => {e.preventDefault(); navigate('/')}}><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+                    <a onClick={e => {e.preventDefault(); navigate(`/application-filled-from/${params.registration_no}`, { state: data })}}>Go Next <i class="fa-solid fa-arrow-right"></i></a>
                 </Col>
             </Row>
         </Container>

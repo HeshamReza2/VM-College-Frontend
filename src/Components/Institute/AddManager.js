@@ -3,7 +3,6 @@ import './AddManager.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import Popup from 'reactjs-popup'
 import { useNavigate } from 'react-router'
 import Cookies from 'universal-cookie'
@@ -71,7 +70,7 @@ function AddManager() {
         else if(Math.ceil(managers2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get(`https://vm-college-backend-1.onrender.com/admin/all`)
+            .get(`http://localhost:8080/admin/all`)
             .then(res => setManagers(res.data))
             .catch(err => console.log(err))
     }, [page, entriesNum, managers, managers2])
@@ -217,7 +216,7 @@ function AddManager() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>

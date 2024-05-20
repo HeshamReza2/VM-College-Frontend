@@ -4,7 +4,6 @@ import './AdmittedStudents.css'
 import Popup from 'reactjs-popup'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useNavigate } from 'react-router'
 import Cookies from 'universal-cookie'
 
@@ -23,6 +22,7 @@ function AdmittedStudents() {
         }
 
         else{
+            //console.log( { username: cookies.get('username'), password: cookies.get('password')});
             axios
                 .post('http://localhost:8080/admin/login', { username: cookies.get('username'), password: cookies.get('password')})
                 .then(res => {
@@ -35,7 +35,6 @@ function AdmittedStudents() {
 
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList2, setStudentsList2 ] = useState(studentsList)
-    console.log(studentsList)
     console.log(studentsList2)
     const [ entriesNum, setEntriesNum ] = useState(10)
 
@@ -72,14 +71,14 @@ function AdmittedStudents() {
         else if(Math.ceil(studentsList2.length/entriesNum) == 0) setPageCount(1)
 
         axios
-            .get(`https://vm-college-backend-1.onrender.com/subjects`)
+            .get(`http://localhost:8080/subjects`)
             .then((res) => setSubjects(res.data))
             .catch(err => console.log(err))
     }, [page, entriesNum, studentsList2, studentsList])
 
     useEffect(() => {
         axios
-            .post(`https://vm-college-backend-1.onrender.com/find-student`, { field: 'admission_status', value: 'true' })
+            .post(`http://localhost:8080/find-student`, { field: 'admission_status', value: 'true' })
             .then((res) => setStudentsList(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -130,7 +129,7 @@ function AdmittedStudents() {
     useEffect(() => {
         if(studentData.name !== '' & studentData.mobile !== ''){
             axios
-                .post(`https://vm-college-backend-1.onrender.com/check-student`, { name: studentData.name, mobile: studentData.mobile })
+                .post(`http://localhost:8080/check-student`, { name: studentData.name, mobile: studentData.mobile })
                 .then(res => {
                     if(res) setExists(true)
                     else setExists(false)
@@ -142,7 +141,7 @@ function AdmittedStudents() {
     const addStudent = (e, close) => {
         e.preventDefault()
         axios
-            .post(`https://vm-college-backend-1.onrender.com/add-student`, studentData)
+            .post(`http://localhost:8080/add-student`, studentData)
             .then(() => {
                 alert('Student Added')
                 close()
@@ -156,7 +155,6 @@ function AdmittedStudents() {
     }
 
     const [ searchItem, setSearchItem ] = useState('')
-    console.log(searchItem);
 
     useEffect(() => {
         if(searchItem == '') setStudentsList2(studentsList)
@@ -276,7 +274,7 @@ function AdmittedStudents() {
                                                     <button className='btn' onClick={e => {
                                                         e.preventDefault()
                                                         axios
-                                                            .post(`https://vm-college-backend-1.onrender.com/add-student`, studentData)
+                                                            .post(`http://localhost:8080/add-student`, studentData)
                                                             .then(() => {
                                                                 alert('Student Added')
                                                                 close()
@@ -374,7 +372,7 @@ function AdmittedStudents() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>

@@ -3,7 +3,6 @@ import './ManageStudent.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import Popup from 'reactjs-popup'
 import { useNavigate } from 'react-router'
 import Cookies from 'universal-cookie'
@@ -36,7 +35,15 @@ function ManageStudent() {
     
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList3, setStudentsList3 ] = useState(studentsList)
-    //console.log(studentsList3);
+    console.log(studentsList3);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/students`)
+            .then(res => setStudentsList(res.data))
+            .catch(err => console.log(err))
+    })
+
 
     const username = cookies.get('username')
     const password = cookies.get('password')
@@ -70,13 +77,7 @@ function ManageStudent() {
 
         if(Math.ceil(studentsList3.length/entriesNum) !== 0) setPageCount(Math.ceil(studentsList3.length/entriesNum))
             else if(Math.ceil(studentsList3.length/entriesNum) == 0) setPageCount(1)
-
-        axios
-            .get(`https://vm-college-backend-1.onrender.com/students`)
-            .then(res => setStudentsList(res.data))
-            .catch(err => console.log(err))
-    }, [page, entriesNum, studentsList, studentsList3])
-
+    }, [page, entriesNum, studentsList3])
     const admissionStatus = (status) => {
         if(status == false) return 'Payment Not Done'
         else return 'Payment Done'
@@ -91,8 +92,8 @@ function ManageStudent() {
 
     useEffect(() => {
         if(searchItem == '') setStudentsList3(studentsList)
-        if(searchItem !== '') setStudentsList3([])
-    }, [searchItem, studentsList])
+        else setStudentsList3([])
+    }, [searchItem, studentsList, studentsList3])
 
     const [ matches4, setMatches4 ] = useState(window.matchMedia('(max-width: 425px)').matches)
 
@@ -118,7 +119,7 @@ function ManageStudent() {
 
     const deleteStudent = (id) => {
         axios
-            .delete(`https://vm-college-backend-1.onrender.com/delete-student/${id}`)
+            .delete(`http://localhost:8080/delete-student/${id}`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
@@ -148,7 +149,7 @@ function ManageStudent() {
 
     useEffect(() => {
         axios
-            .get(`https://vm-college-backend-1.onrender.com/subjects`)
+            .get(`http://localhost:8080/subjects`)
             .then(res => setSubjects(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -173,7 +174,7 @@ function ManageStudent() {
 
     const [ file, setFile ] = useState(null)
     const [ jsonData, setJsonData ] = useState([])
-    console.log(jsonData);
+    //console.log(jsonData);
 
     useEffect(() => {
         if(file){
@@ -239,7 +240,7 @@ function ManageStudent() {
                                                     <button className='btn' onClick={e => {
                                                         e.preventDefault()
                                                         // axios
-                                                        //     .post(`https://vm-college-backend-1.onrender.com/add-student`, newStudent)
+                                                        //     .post(`http://localhost:8080/add-student`, newStudent)
                                                         //     .then(() => {
                                                         //         alert('Student Added')
                                                         //         close()
@@ -353,7 +354,7 @@ function ManageStudent() {
                                                     <button className='btn' onClick={e => {
                                                         e.preventDefault()
                                                         axios
-                                                            .post(`https://vm-college-backend-1.onrender.com/add-student`, newStudent)
+                                                            .post(`http://localhost:8080/add-student`, newStudent)
                                                             .then(() => {
                                                                 alert('Student Added')
                                                                 close()
@@ -468,7 +469,7 @@ function ManageStudent() {
                     </Col>
 
                     <Col sm='6' className='paginator'>
-                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<ArrowForwardIos style={{ fontSize: 18}} />} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<ArrowBackIos style={{ fontSize: 18}} />} />
+                        <ReactPaginate activeClassName={'item active '} breakClassName={'item break-me '} breakLabel={'...'} containerClassName={'pagination'} disabledClassName={'disabled-page'} marginPagesDisplayed={2} nextClassName={'item next '} nextLabel={<i class="fa-solid fa-forward-step" style={{fontSize: '24px'}}></i>} onPageChange={e => setPage(e.selected)} pageCount={pageCount} pageClassName={'item pagination-page '} pageRangeDisplayed={2} previousClassName={'item previous'} previousLabel={<i class="fa-solid fa-backward-step" style={{fontSize: '24px'}}></i>} />
 
                     </Col>
                 </Row>
