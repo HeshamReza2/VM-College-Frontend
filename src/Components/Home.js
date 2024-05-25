@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './Home.css'
 import { useNavigate } from 'react-router'
+import axios from 'axios'
 
 function Home() {
   const navigate = useNavigate()
+
+  const [ openClose, setOpenClose ] = useState([])
+  console.log(openClose)
+  
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/openclose')
+      .then(res => setOpenClose((res.data)))
+      .catch(err => console.log(err))
+  }, [1000])
+
+  const monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   return (
     <Container fluid>
       <Row>
@@ -35,36 +48,24 @@ function Home() {
                     <table className='table'>
                       <thead>
                         <tr>
-                          <th scope='col'>Sr No</th>
                           <th scope='col'>Title</th>
                           <th scope='col'>Date/ Timelines</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <tr>
-                          <th scope='row'>1</th>
-                          <td>Hesham Reza</td>
-                          <td>03-05-2024</td>
-                        </tr>
-                        
-                        <tr>
-                          <th scope='row'>1</th>
-                          <td>Hesham Reza</td>
-                          <td>03-05-2024</td>
-                        </tr>
-                        
-                        <tr>
-                          <th scope='row'>1</th>
-                          <td>Hesham Reza</td>
-                          <td>03-05-2024</td>
-                        </tr>
-                        
-                        <tr>
-                          <th scope='row'>1</th>
-                          <td>Hesham Reza</td>
-                          <td>03-05-2024</td>
-                        </tr>
+                        {
+                          openClose && openClose.map((item, index) => {
+                            if(item.status == true){
+                              return(
+                                <tr key={index}>
+                                  <td>{item.semester}</td>
+                                  <td>{new Date(item.date).getDate()} {monthList[new Date(item.date).getMonth()]}, {new Date(item.date).getFullYear()}</td>
+                                </tr>
+                              )
+                            }
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>

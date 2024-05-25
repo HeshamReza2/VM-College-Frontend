@@ -73,6 +73,17 @@
 
 .application-box-details-text p:last-child{
     text-indent: 7px;
+    color: rgb(167, 0, 0);
+}
+
+.application-box-img{
+    display: flex;
+    justify-content: center;
+}
+
+.application-box-img img{
+    width: 200px;
+    height: fit-content;
 }
 
 @media screen and (max-width: 425px) {

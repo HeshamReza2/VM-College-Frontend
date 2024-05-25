@@ -31,11 +31,11 @@ function ManageStudent() {
                     })
                 .catch(err => console.log(err))
         }
-    })
+    }, [])
     
     const [ studentsList, setStudentsList ] = useState([])
     const [ studentsList3, setStudentsList3 ] = useState(studentsList)
-    console.log(studentsList3);
+    //console.log(studentsList3);
 
     useEffect(() => {
         axios
@@ -93,7 +93,7 @@ function ManageStudent() {
     useEffect(() => {
         if(searchItem == '') setStudentsList3(studentsList)
         else setStudentsList3([])
-    }, [searchItem, studentsList, studentsList3])
+    }, [searchItem, studentsList])
 
     const [ matches4, setMatches4 ] = useState(window.matchMedia('(max-width: 425px)').matches)
 
@@ -120,12 +120,13 @@ function ManageStudent() {
     const deleteStudent = (id) => {
         axios
             .delete(`http://localhost:8080/delete-student/${id}`)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then(res => alert('Student Deleted'))
+            .catch(err => alert('Student Not Deleted'))
     }
 
     const [ newStudent, setNewStudent ] = useState({
         name: '',
+        registration_no: '',
         father_name: '',
         mobile: '',
         email: '',
@@ -174,7 +175,7 @@ function ManageStudent() {
 
     const [ file, setFile ] = useState(null)
     const [ jsonData, setJsonData ] = useState([])
-    //console.log(jsonData);
+    console.log(jsonData);
 
     useEffect(() => {
         if(file){
@@ -239,15 +240,16 @@ function ManageStudent() {
                                                 <div className='buttoned-2'>
                                                     <button className='btn' onClick={e => {
                                                         e.preventDefault()
-                                                        // axios
-                                                        //     .post(`http://localhost:8080/add-student`, newStudent)
-                                                        //     .then(() => {
-                                                        //         alert('Student Added')
-                                                        //         close()
-                                                        //     })
-                                                        //     .catch(err => console.log(err))
-                                                        //     close()
-                                                        navigate('/institute/sample', { state : jsonData }); 
+                                                        axios
+                                                            .post(`http://localhost:8080/add-multiple-students`, { data : jsonData })
+                                                            .then(() => {
+                                                                alert('Students Added')
+                                                                close()
+                                                            })
+                                                            .catch(err => {
+                                                                alert('Students Not Added')
+                                                                close()
+                                                            }) 
                                                     }}>Add</button>
                                                     <button className='btn' onClick={e => {e.preventDefault(); close();}}>Exit</button>
                                                 </div>
@@ -277,6 +279,12 @@ function ManageStudent() {
                                                 <div className='form-group-6'>
                                                     <input type='text' className='form-control my-3 form-group-6-input' autoFocus required name='name' placeholder={`Student's Full Name`} onChange={updateNewStudentData} />
                                                     <i class="fa-solid fa-user icon-align"></i>
+                                                </div>
+
+                                                
+                                                <div className='form-group-6'>
+                                                    <input type='text' className='form-control my-3 form-group-6-input' autoFocus required name='registration_no' placeholder={`Student's Registration Number`} onChange={updateNewStudentData} />
+                                                    <i class="fa-solid fa-hashtag icon-align"></i>
                                                 </div>
 
                                                 
@@ -359,8 +367,10 @@ function ManageStudent() {
                                                                 alert('Student Added')
                                                                 close()
                                                             })
-                                                            .catch(err => console.log(err))
-                                                            close()
+                                                            .catch(err => {
+                                                                alert('Student Not Added')
+                                                                close()
+                                                            })
                                                     }}>Add</button>
                                                     <button className='btn' onClick={e => {e.preventDefault();close();}}>Exit</button>
                                                 </div>

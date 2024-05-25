@@ -114,7 +114,7 @@ function OpenClose() {
     const updateStatus = (item) => {
         if(item.status == false){
             axios
-                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'true'})
+                .patch(`http://localhost:8080/update-openclose/${item._id}`, { status: 'true', date: Date.now})
                 .then(() => updateAllSubject(item.type, item.programme, item.semester, item.status))
                 .catch(err => console.log(err))
         }
