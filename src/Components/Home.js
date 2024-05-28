@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate()
 
   const [ openClose, setOpenClose ] = useState([])
-  console.log(openClose)
+  //console.log(openClose)
   
   useEffect(() => {
     axios
